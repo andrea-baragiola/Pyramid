@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using PyramidLibrary.Models;
 using PyramidLibrary.Services;
 
-int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-string[] suitsList = { "H", "D", "C", "S" };
 
 
 
 
-List<Card> deck = Preparation.PopulateDeck(numberList, suitsList);
 
-//shuffle deck
+List<Card> deck = Preparation.CreateDeck();
 Preparation.Shuffle(deck);
 
 // selezionare carte nella board
@@ -32,21 +29,15 @@ board.AllPositions = board.RowA.Concat(board.RowB).Concat(board.RowC).Concat(boa
 // inizializzare mazzo scarti
 List<Card> descardedCards = new List<Card>();
 
-
-
 //// iniziare while loop
-///
-// fare elenco carte disponibili
-List<BoardPosition> availableBoardPositions = new List<BoardPosition>();
-foreach (BoardPosition position in board.AllPositions)
-{
-    if (position.Status == BoardPositionStatus.Available)
-    {
-        availableBoardPositions.Add(position);
-    }
-}
 
+// fare elenco carte disponibili
+List<BoardPosition> availableBoardPositions = GameDesign.GetAvailableBoardPositions(board);
+
+// fare elenco mosse disponibili
 List<(BoardPosition, BoardPosition)> availableBoardMoves = GameDesign.GetAvailableBoadMoves(board, availableBoardPositions);
+
+
 
 foreach (BoardPosition position in availableBoardPositions)
 {
@@ -54,7 +45,6 @@ foreach (BoardPosition position in availableBoardPositions)
 }
 Console.WriteLine();
 Console.WriteLine();
-
 foreach ((BoardPosition,BoardPosition) move in availableBoardMoves)
 {
     if (move.Item2 == null)
@@ -67,10 +57,11 @@ foreach ((BoardPosition,BoardPosition) move in availableBoardMoves)
     }
 
 }
-
 Console.WriteLine();
 
-// fare elenco mosse disponibili
+
+
+
 // fare prima mossa
 // cambiare gli status delle carte nel board
 

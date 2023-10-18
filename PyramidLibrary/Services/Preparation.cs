@@ -20,12 +20,15 @@ namespace PyramidLibrary.Services
             return boardPositions;
         }
 
-        public static List<Card> PopulateDeck(int[] numberList, string[] suits)
+        public static List<Card> CreateDeck()
         {
+            int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            string[] suitsList = { "H", "D", "C", "S" };
+
             List<Card> deck = new List<Card>();
             foreach (int number in numberList)
             {
-                foreach (string suit in suits)
+                foreach (string suit in suitsList)
                 {
                     deck.Add(new Card(number, suit));
                 }

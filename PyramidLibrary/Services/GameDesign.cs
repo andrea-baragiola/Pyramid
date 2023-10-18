@@ -9,6 +9,19 @@ namespace PyramidLibrary.Services
 {
     public static class GameDesign
     {
+        public static List<BoardPosition> GetAvailableBoardPositions(Board board)
+        {
+            List<BoardPosition> availableBoardPositions = new List<BoardPosition>();
+            foreach (BoardPosition position in board.AllPositions)
+            {
+                if (position.Status == BoardPositionStatus.Available)
+                {
+                    availableBoardPositions.Add(position);
+                }
+            }
+            return availableBoardPositions;
+        }
+
         public static List<(BoardPosition, BoardPosition)> GetAvailableBoadMoves(Board board, List<BoardPosition> availablePositions)
         {
             List<(BoardPosition, BoardPosition)> availableMoves = new List<(BoardPosition, BoardPosition)> ();
