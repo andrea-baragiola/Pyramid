@@ -3,6 +3,6 @@
     public interface IPosition
     {
         Card? Card { get; set; }
-        (string?, int?) Id { get; set; }
+        (int?, int?) Id { get; set; }
     }
 }

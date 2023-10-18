@@ -8,14 +8,14 @@ namespace PyramidLibrary.Models
 {
     public class DeckPosition : IPosition
     {
-        public (string?, int?) Id { get; set; }
+        public (int?, int?) Id { get; set; }
         public Card? Card { get; set; }
 
         public int? IndexInDeck { get; set; }
 
         public DeckPosition( int indexInDeck, Card card)
         {
-            Id = ("deck", indexInDeck);
+            Id = (999, indexInDeck);
             Card = card;
         }
     }

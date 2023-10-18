@@ -9,22 +9,28 @@ namespace PyramidLibrary.Services
 {
     public static class GameDesign
     {
-        public static List<BoardPosition> GetAvailableBoardPositions(Board board)
+        public static List<IPosition> GetAvailableBoardPositions(Board board)
         {
-            List<BoardPosition> availableBoardPositions = new List<BoardPosition>();
-            foreach (BoardPosition position in board.AllPositions)
+            List<IPosition> availableBoardPositions = new List<IPosition>();
+
+            foreach (List<IPosition> positions in board.ListOfListPositions)
             {
-                if (position.Status == BoardPositionStatus.Available)
+                foreach (BoardPosition position in positions)
                 {
-                    availableBoardPositions.Add(position);
+                    if (position.Status == BoardPositionStatus.Available)
+                    {
+                        availableBoardPositions.Add(position);
+                    }
                 }
             }
+
+
             return availableBoardPositions;
         }
 
-        public static List<(BoardPosition, BoardPosition)> GetAvailableBoadMoves(Board board, List<BoardPosition> availablePositions)
+        public static List<(IPosition, IPosition)> GetAvailableBoadMoves(Board board, List<IPosition> availablePositions)
         {
-            List<(BoardPosition, BoardPosition)> availableMoves = new List<(BoardPosition, BoardPosition)> ();
+            List<(IPosition, IPosition)> availableMoves = new List<(IPosition, IPosition)> ();
 
             for (int i = 0; i < availablePositions.Count; i++)
             {
@@ -46,9 +52,21 @@ namespace PyramidLibrary.Services
             return availableMoves;
         }
 
-        public static List<(BoardPosition, int)> GetAvailableDeckMoves()
+        public static List<(IPosition, IPosition)> GetAvailableDeckMoves(Board board, InHandDeck inHandDeck, List<IPosition> availablePositions)
         {
-            throw new NotImplementedException();
+            List<(IPosition, IPosition)> availableMoves = new List<(IPosition, IPosition)>();
+            
+            for (int i = 0; i < availablePositions.Count; i++)
+            {
+                for (int k = 0; k < inHandDeck.DeckPositions.Count; k++)
+                {
+                    if (availablePositions[i].Card.Number == 10 - inHandDeck.DeckPositions[k].Card.Number)
+                    {
+                        availableMoves.Add((availablePositions[i], inHandDeck.DeckPositions[k]));
+                    }
+                }
+            }
+            return availableMoves;
         }
     }
 }

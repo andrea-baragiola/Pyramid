@@ -7,19 +7,8 @@ using PyramidLibrary.Models;
 
 namespace PyramidLibrary.Services
 {
-    public static class Preparation
+    public static class DeckPreparation
     {
-        public static List<BoardPosition> PopulatePositions(string row, int[] shifts, BoardPositionStatus status, List<Card> cardPositions)
-        {
-            List<BoardPosition> boardPositions = new List<BoardPosition>();
-            foreach (int shift in shifts)
-            {
-                boardPositions.Add(new BoardPosition(row, shift, status, cardPositions[0]));
-                cardPositions.RemoveAt(0);
-            }
-            return boardPositions;
-        }
-
         public static List<Card> CreateDeck()
         {
             int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -50,14 +39,18 @@ namespace PyramidLibrary.Services
             }
         }
 
-        public static void PickCardsForBoad(List<Card> deck, out List<Card> cardPositionsA, out List<Card> cardPositionsB, out List<Card> cardPositionsC)
+        public static List<IPosition> PopulateDeckPositions(List<Card> deck)
         {
-            cardPositionsA = deck.GetRange(0, 1);
-            deck.RemoveRange(0, 1);
-            cardPositionsB = deck.GetRange(0, 2);
-            deck.RemoveRange(0, 2);
-            cardPositionsC = deck.GetRange(0, 10);
-            deck.RemoveRange(0, 3);
+            List < IPosition > deckPos = new List <IPosition>();
+            int n = 0;
+            foreach (Card card in deck)
+            {
+                deckPos.Add(new DeckPosition(n,card));
+                n++;
+            }
+            return deckPos;
         }
+
+
     }
 }

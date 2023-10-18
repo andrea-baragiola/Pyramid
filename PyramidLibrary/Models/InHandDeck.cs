@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PyramidLibrary.Models
 {
-    public class Board
+    public class InHandDeck
     {
-        public List<List<IPosition>> ListOfListPositions { get; set; }
-
+        public List<IPosition> DeckPositions { get; set; }
     }
 }
