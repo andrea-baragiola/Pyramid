@@ -8,7 +8,7 @@ namespace PyramidLibrary.Models
 {
     public class DeckPosition : IPosition
     {
-        public (int?, int?) Id { get; set; }
+        public (int, int) Id { get; set; }
         public Card? Card { get; set; }
 
         public int? IndexInDeck { get; set; }

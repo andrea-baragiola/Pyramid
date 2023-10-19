@@ -33,18 +33,38 @@ namespace PyramidLibrary.Services
                 listOfCardSections.Add(cardSection);
                 numberOfCards++;
             }
+
+
             return listOfCardSections;
         }
 
         public static List<List<IPosition>> PopulateAllRows(List<List<Card>> cardSections)
         {
-            List < List < IPosition >> listOfListPosition = new List<List <IPosition>>();
+            List<List<IPosition>> listOfListPosition = new List<List<IPosition>>();
             int rowIndex = 1;
             foreach (List<Card> cardSection in cardSections)
             {
                 List<IPosition> positions = PopulateRow(cardSection, rowIndex);
                 listOfListPosition.Add(positions);
+                rowIndex++;
             }
+
+            List<int> emptyShifts = CalculateShifts(rowIndex);
+            List<Card> emptyCardSection = new List<Card>();
+
+            for (int i = 0; i < rowIndex; i++)
+            {
+                emptyCardSection.Add(null);
+            }
+
+            List<IPosition> emptyPositions = new List<IPosition>();
+            foreach (int emptyShift in emptyShifts)
+            {
+                emptyPositions.Add(new BoardPosition(emptyShift, rowIndex, null));
+            }
+
+            listOfListPosition.Add(emptyPositions);
+
             return listOfListPosition;
         }
 
@@ -52,18 +72,7 @@ namespace PyramidLibrary.Services
         public static List<IPosition> PopulateRow(List<Card> cardSection, int rowIndex)
         {
             List<IPosition> boardPositions = new List<IPosition>();
-
-            List<int> shifts = new List<int>();
-
-
-            int lastShift = cardSection.Count - 1;
-            shifts.Add(lastShift);
-            int next = lastShift - 2;
-            while (cardSection.Count > shifts.Count)
-            {
-                shifts.Add(next);
-                next = next - 2;
-            }
+            List<int> shifts = CalculateShifts(cardSection.Count);
 
             foreach (int shift in shifts)
             {
@@ -71,6 +80,23 @@ namespace PyramidLibrary.Services
                 cardSection.RemoveAt(0);
             }
             return boardPositions;
+        }
+
+        private static List<int> CalculateShifts(int count)
+        {
+            List<int> shifts = new List<int>();
+
+
+            int lastShift = count - 1;
+            shifts.Add(lastShift);
+            int next = lastShift - 2;
+            while (count > shifts.Count)
+            {
+                shifts.Add(next);
+                next = next - 2;
+            }
+
+            return shifts;
         }
     }
 }

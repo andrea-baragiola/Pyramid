@@ -8,14 +8,14 @@ namespace PyramidLibrary.Models
 {
     public class BoardPosition : IPosition
     {
-        public (int?, int?) Id { get; set; }
+        public (int, int) Id { get; set; }
         public Card? Card { get; set; }
-        public int? Row { get; set; }
-        public int? Shift { get; set; }
+        public int Row { get; set; }
+        public int Shift { get; set; }
         public BoardPositionStatus Status { get; set; }
 
 
-        public BoardPosition(int shift, int row, Card card)
+        public BoardPosition(int shift, int row, Card? card)
         {
             Id = (row, shift);
             Row = row;

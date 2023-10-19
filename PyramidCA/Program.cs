@@ -32,7 +32,7 @@ List<Card> descardedCards = new List<Card>();
 List<IPosition> availableBoardPositions = GameDesign.GetAvailableBoardPositions(board);
 
 // fare elenco mosse disponibili
-List<(IPosition, IPosition)> availableBoardMoves = GameDesign.GetAvailableBoadMoves(board, availableBoardPositions);
+List<(IPosition, IPosition)> availableBoardMoves = GameDesign.GetAvailableBoardMoves(board, availableBoardPositions);
 
 List<(IPosition, IPosition)> availableDeckMoves = GameDesign.GetAvailableDeckMoves(board, inHandDeck, availableBoardPositions);
 

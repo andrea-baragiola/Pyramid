@@ -5,68 +5,77 @@ using System.Text;
 using System.Threading.Tasks;
 using PyramidLibrary.Models;
 
-namespace PyramidLibrary.Services
+namespace PyramidLibrary.Services;
+
+public static class GameDesign
 {
-    public static class GameDesign
+    public static List<IPosition> GetAvailableBoardPositions(Board board)
     {
-        public static List<IPosition> GetAvailableBoardPositions(Board board)
-        {
-            List<IPosition> availableBoardPositions = new List<IPosition>();
+        List<IPosition> availableBoardPositions = new List<IPosition>();
 
-            foreach (List<IPosition> positions in board.ListOfListPositions)
+        for (int i = 0; i < board.ListOfListPositions.Count - 1; i++)
+        {
+            List<IPosition> currentRowPositions = board.ListOfListPositions[i];
+            List<IPosition> nextRowPositions = board.ListOfListPositions[i+1];
+
+            for (int k = 0; k < currentRowPositions.Count; k++)
             {
-                foreach (BoardPosition position in positions)
+                if (nextRowPositions[k].Card == null && nextRowPositions[k + 1].Card == null)
                 {
-                    if (position.Status == BoardPositionStatus.Available)
-                    {
-                        availableBoardPositions.Add(position);
-                    }
+                    availableBoardPositions.Add(currentRowPositions[k]);
                 }
             }
 
 
-            return availableBoardPositions;
+
         }
 
-        public static List<(IPosition, IPosition)> GetAvailableBoadMoves(Board board, List<IPosition> availablePositions)
+
+
+
+
+
+        return availableBoardPositions;
+    }
+
+    public static List<(IPosition, IPosition)> GetAvailableBoardMoves(Board board, List<IPosition> availablePositions)
+    {
+        List<(IPosition, IPosition)> availableMoves = new List<(IPosition, IPosition)>();
+
+        for (int i = 0; i < availablePositions.Count; i++)
         {
-            List<(IPosition, IPosition)> availableMoves = new List<(IPosition, IPosition)> ();
-
-            for (int i = 0; i < availablePositions.Count; i++)
+            if (availablePositions[i].Card.Number == 10)
             {
-                if (availablePositions[i].Card.Number == 10)
-                {
-                    availableMoves.Add((availablePositions[i], null));
-                    continue;
-                }
+                availableMoves.Add((availablePositions[i], null));
+                continue;
+            }
 
-                for (int k = i +1;  k < availablePositions.Count; k++)
-                {
+            for (int k = i + 1; k < availablePositions.Count; k++)
+            {
 
-                    if (availablePositions[i].Card.Number == 10 - availablePositions[k].Card.Number)
-                    {
-                        availableMoves.Add((availablePositions[i], availablePositions[k]));
-                    }
+                if (availablePositions[i].Card.Number == 10 - availablePositions[k].Card.Number)
+                {
+                    availableMoves.Add((availablePositions[i], availablePositions[k]));
                 }
             }
-            return availableMoves;
         }
+        return availableMoves;
+    }
 
-        public static List<(IPosition, IPosition)> GetAvailableDeckMoves(Board board, InHandDeck inHandDeck, List<IPosition> availablePositions)
+    public static List<(IPosition, IPosition)> GetAvailableDeckMoves(Board board, InHandDeck inHandDeck, List<IPosition> availablePositions)
+    {
+        List<(IPosition, IPosition)> availableMoves = new List<(IPosition, IPosition)>();
+
+        for (int i = 0; i < availablePositions.Count; i++)
         {
-            List<(IPosition, IPosition)> availableMoves = new List<(IPosition, IPosition)>();
-            
-            for (int i = 0; i < availablePositions.Count; i++)
+            for (int k = 0; k < inHandDeck.DeckPositions.Count; k++)
             {
-                for (int k = 0; k < inHandDeck.DeckPositions.Count; k++)
+                if (availablePositions[i].Card.Number == 10 - inHandDeck.DeckPositions[k].Card.Number)
                 {
-                    if (availablePositions[i].Card.Number == 10 - inHandDeck.DeckPositions[k].Card.Number)
-                    {
-                        availableMoves.Add((availablePositions[i], inHandDeck.DeckPositions[k]));
-                    }
+                    availableMoves.Add((availablePositions[i], inHandDeck.DeckPositions[k]));
                 }
             }
-            return availableMoves;
         }
+        return availableMoves;
     }
 }
