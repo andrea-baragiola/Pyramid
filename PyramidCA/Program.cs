@@ -29,12 +29,12 @@ List<Card> descardedCards = new List<Card>();
 //// iniziare while loop
 
 // fare elenco carte disponibili
-List<IPosition> availableBoardPositions = GameDesign.GetAvailableBoardPositions(board);
+List<IPosition> availableBoardPositions = AvailableMoves.GetAvailableBoardPositions(board);
 
 // fare elenco mosse disponibili
-List<(IPosition, IPosition)> availableBoardMoves = GameDesign.GetAvailableBoardMoves(board, availableBoardPositions);
+List<(IPosition, IPosition)> availableBoardMoves = AvailableMoves.GetAvailableBoardMoves(board, availableBoardPositions);
 
-List<(IPosition, IPosition)> availableDeckMoves = GameDesign.GetAvailableDeckMoves(board, inHandDeck, availableBoardPositions);
+List<(IPosition, IPosition)> availableDeckMoves = AvailableMoves.GetAvailableDeckMoves(board, inHandDeck, availableBoardPositions);
 
 // PRESENTATION
 //Presentation.PresentAvailableBoardPositions(availableBoardPositions);

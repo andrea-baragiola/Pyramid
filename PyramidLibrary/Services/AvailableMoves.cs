@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PyramidLibrary.Models;
+﻿using PyramidLibrary.Models;
 
 namespace PyramidLibrary.Services;
 
-public static class GameDesign
+public static class AvailableMoves
 {
     public static List<IPosition> GetAvailableBoardPositions(Board board)
     {
@@ -25,16 +20,7 @@ public static class GameDesign
                     availableBoardPositions.Add(currentRowPositions[k]);
                 }
             }
-
-
-
         }
-
-
-
-
-
-
         return availableBoardPositions;
     }
 
@@ -49,7 +35,6 @@ public static class GameDesign
                 availableMoves.Add((availablePositions[i], null));
                 continue;
             }
-
             for (int k = i + 1; k < availablePositions.Count; k++)
             {
 
