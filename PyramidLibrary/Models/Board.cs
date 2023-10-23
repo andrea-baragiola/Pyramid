@@ -102,7 +102,7 @@ public class Board
             rowIndex++;
         }
 
-        List<int> emptyShifts = CalculateShifts(rowIndex + 1);
+
         List<Card> emptyCardSection = new();
 
         for (int i = 0; i < rowIndex+1; i++)
@@ -111,9 +111,9 @@ public class Board
         }
 
         List<IPosition> emptyRow = new();
-        foreach (int emptyShift in emptyShifts)
+        foreach (int value in Enumerable.Range(0, emptyCardSection.Count))
         {
-            emptyRow.Add(new BoardPosition(emptyShift, rowIndex, null));
+            emptyRow.Add(new BoardPosition(value, rowIndex, null));
         }
 
         pyramidOfCards.Add(emptyRow);
@@ -125,11 +125,11 @@ public class Board
     private List<IPosition> PopulateRow(List<Card> cardGroup, int rowIndex)
     {
         List<IPosition> row = new List<IPosition>();
-        List<int> shifts = CalculateShifts(cardGroup.Count);
 
-        foreach (int shift in shifts)
+
+        foreach (int value in Enumerable.Range(0, cardGroup.Count))
         {
-            row.Add(new BoardPosition(shift, rowIndex, cardGroup[0]));
+            row.Add(new BoardPosition(value, rowIndex, cardGroup[0]));
             cardGroup.RemoveAt(0);
         }
         return row;

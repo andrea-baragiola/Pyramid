@@ -5,15 +5,15 @@ public class BoardPosition : IPosition
     public (int, int) Id { get; set; }
     public Card? Card { get; set; }
     public int Row { get; set; }
-    public int Shift { get; set; }
-    public BoardPositionStatus Status { get; set; }
 
 
-    public BoardPosition(int shift, int row, Card? card)
+
+
+    public BoardPosition(int inRowIndex, int row, Card? card)
     {
-        Id = (row, shift);
+        Id = (row, inRowIndex);
         Row = row;
-        Shift = shift;
+
         Card = card;
     }
 }
