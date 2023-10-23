@@ -50,6 +50,17 @@ namespace PyramidCA
             Console.WriteLine();
         }
 
+        public static void PresentAvailableDescardedDeckPositions(List<IPosition> availableDiscardedPositions)
+        {
+            Console.WriteLine("AvailableDiscardedCards");
+            foreach (IPosition position in availableDiscardedPositions)
+            {
+                Console.Write(position.Card.Name + ", ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
         public static void PresentAvailableMoves(List<Move> availableBoardMoves)
         {
             Console.WriteLine("AvailableMoves");

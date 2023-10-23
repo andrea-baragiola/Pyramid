@@ -22,7 +22,7 @@ public class Board
 
     public void GetAvailableBoardPositions()
     {
-        List<IPosition> availableBoardPositions = new List<IPosition>();
+        List<IPosition> availableBoardPositions = new();
 
         for (int i = 0; i < PyramidOfCards.Count - 1; i++)
         {
@@ -31,12 +31,14 @@ public class Board
 
             for (int k = 0; k < currentRowPositions.Count; k++)
             {
-                if (nextRowPositions[k].Card == null && nextRowPositions[k + 1].Card == null)
+                if (nextRowPositions[k].Card == null && nextRowPositions[k + 1].Card == null && currentRowPositions[k].Card != null)
                 {
                     availableBoardPositions.Add(currentRowPositions[k]);
                 }
             }
         }
+
+        availableBoardPositions.Reverse();
         AvailableBoardPositions = availableBoardPositions;
     }
 
@@ -80,7 +82,7 @@ public class Board
             {
                 if (AvailableBoardPositions[i].Card.Number == 10 - InHandDeck.Positions[k].Card.Number)
                 {
-                    availableMoves.Add(new Move(AvailableBoardPositions[i], InHandDeck.Positions[k]));
+                    availableMoves.Add(new Move(InHandDeck.Positions[k] , AvailableBoardPositions[i]));
                 }
             }
         }
@@ -90,9 +92,9 @@ public class Board
 
     private void PopulateAllRows(List<List<Card>> cardGroups)
     {
-        List<List<IPosition>> pyramidOfCards = new List<List<IPosition>>();
+        List<List<IPosition>> pyramidOfCards = new();
 
-        int rowIndex = 1;
+        int rowIndex = 0;
         foreach (List<Card> cardGroup in cardGroups)
         {
             List<IPosition> row = PopulateRow(cardGroup, rowIndex);
@@ -100,10 +102,10 @@ public class Board
             rowIndex++;
         }
 
-        List<int> emptyShifts = CalculateShifts(rowIndex);
-        List<Card> emptyCardSection = new List<Card>();
+        List<int> emptyShifts = CalculateShifts(rowIndex + 1);
+        List<Card> emptyCardSection = new();
 
-        for (int i = 0; i < rowIndex; i++)
+        for (int i = 0; i < rowIndex+1; i++)
         {
             emptyCardSection.Add(null);
         }

@@ -17,6 +17,35 @@ Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
 Console.WriteLine();
 
 
+while (player.isWinner == false && player.isLooser == false)
+{
+    player.ExecuteMove(0);
+
+    Presentation.PresentBoard(player.Board);
+
+    player.Board.GetAvailableBoardPositions();
+    player.Board.GetAvailableMoves();
+
+    Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
+
+    Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
+
+    Presentation.PresentAvailableDescardedDeckPositions(player.Board.DiscardedCardsDeck.Positions);
+
+    player.CheckWinLoss();
+}
+
+if (player.isWinner)
+{
+    Console.WriteLine("YOU WON");
+}
+else
+{
+    Console.WriteLine("YOU LOST");
+}
+
+
+
 //// iniziare while loop
 ///
 
