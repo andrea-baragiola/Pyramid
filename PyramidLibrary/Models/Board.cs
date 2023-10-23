@@ -37,7 +37,6 @@ public class Board
                 }
             }
         }
-
         availableBoardPositions.Reverse();
         AvailableBoardPositions = availableBoardPositions;
     }
@@ -102,7 +101,6 @@ public class Board
             rowIndex++;
         }
 
-
         List<Card> emptyCardSection = new();
 
         for (int i = 0; i < rowIndex+1; i++)
@@ -134,28 +132,6 @@ public class Board
         }
         return row;
     }
-
-    private List<int> CalculateShifts(int count)
-    {
-        List<int> shifts = new List<int>();
-
-
-        int lastShift = count - 1;
-        shifts.Add(lastShift);
-        int next = lastShift - 2;
-        while (count > shifts.Count)
-        {
-            shifts.Add(next);
-            next = next - 2;
-        }
-
-        return shifts;
-    }
-
-
-
-
-
 
     private List<List<Card>> PickCardsForBoard(int numberOfRows)
     {

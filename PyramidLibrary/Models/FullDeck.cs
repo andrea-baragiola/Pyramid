@@ -52,18 +52,4 @@ public class FullDeck : IDeck
             list[n] = value;
         }
     }
-
-
-    // TODO remove this method
-    //public static List<IPosition> PopulateDeckPositions(List<Card> deck)
-    //{
-    //    List<IPosition> deckPos = new List<IPosition>();
-    //    int n = 0;
-    //    foreach (Card card in deck)
-    //    {
-    //        deckPos.Add(new DeckPosition(n, card));
-    //        n++;
-    //    }
-    //    return deckPos;
-    //}
 }

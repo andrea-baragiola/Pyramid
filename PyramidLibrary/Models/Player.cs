@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PyramidLibrary.Services;
-
-namespace PyramidLibrary.Models;
+﻿namespace PyramidLibrary.Models;
 
 public class Player
 {
@@ -13,9 +6,9 @@ public class Player
     public bool isWinner { get; set; } = false;
     public bool isLooser { get; set; } = false;
 
-    public Player()
+    public Player(int numberOfPyramidRows)
     {
-        Board = new(6);
+        Board = new(numberOfPyramidRows);
     }
 
     public void ExecuteMove(int moveIndex)
@@ -29,47 +22,30 @@ public class Player
         {
             ExecuteBoardMove(move);
         }
-        
-
-    }
-
-    public void CheckWinLoss()
-    {
-        if (Board.AvailableMoves.Count == 0)
-        {
-            if (Board.AvailableBoardPositions.Count == 0)
-            {
-                isWinner = true;
-            }
-            else
-            {
-                isLooser = true;
-            }
-        }
     }
 
     private void ExecuteBoardMove(Move move)
     {
-        List<IPosition> potitionsToClear = new() { move.Cohordinates.Item1, move.Cohordinates.Item2 };
-        foreach (IPosition positionToMove in potitionsToClear)
+        List<IPosition> positionsToMove = new() { move.Cohordinates.Item1, move.Cohordinates.Item2 };
+        foreach (IPosition positionToMove in positionsToMove)
         {
             if (positionToMove == null)
             {
                 continue;
             }
-
-            AddCardToDescardDeck(positionToMove.Card);
-
-            int row = positionToMove.Id.Item1;
-            foreach (IPosition boardposition in Board.PyramidOfCards[row])
+            else
             {
-                if (boardposition == positionToMove)
-                {
-                    boardposition.Card = null; break;
-                }
-            }
+                AddCardToDescardDeck(positionToMove.Card);
 
-            
+                int row = positionToMove.Id.Item1;
+                foreach (IPosition boardposition in Board.PyramidOfCards[row])
+                {
+                    if (boardposition == positionToMove)
+                    {
+                        boardposition.Card = null; break;
+                    }
+                }
+            } 
         }
     }
 
@@ -112,5 +88,20 @@ public class Player
     {
         int currentNumberOfCards = Board.DiscardedCardsDeck.Positions.Count;
         Board.DiscardedCardsDeck.Positions.Add(new DeckPosition(currentNumberOfCards, card));
+    }
+
+    public void CheckWinLoss()
+    {
+        if (Board.AvailableMoves.Count == 0)
+        {
+            if (Board.AvailableBoardPositions.Count == 0)
+            {
+                isWinner = true;
+            }
+            else
+            {
+                isLooser = true;
+            }
+        }
     }
 }
