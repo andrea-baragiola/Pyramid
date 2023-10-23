@@ -2,5 +2,5 @@
 
 public class EmptyDeck : IDeck
 {
-    public List<Card> Cards { get; set; }
+    public List<IPosition> Positions { get; set; }
 }

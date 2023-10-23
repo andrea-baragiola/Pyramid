@@ -50,18 +50,18 @@ namespace PyramidCA
             Console.WriteLine();
         }
 
-        public static void PresentAvailableBoardMoves(List<(IPosition, IPosition)> availableBoardMoves)
+        public static void PresentAvailableMoves(List<Move> availableBoardMoves)
         {
-            Console.WriteLine("AvailableBoardMoves");
-            foreach ((IPosition, IPosition) move in availableBoardMoves)
+            Console.WriteLine("AvailableMoves");
+            foreach (Move move in availableBoardMoves)
             {
-                if (move.Item2 == null)
+                if (move.Cohordinates.Item2 == null)
                 {
-                    Console.WriteLine(move.Item1.Card.Name);
+                    Console.WriteLine(move.Cohordinates.Item1.Card.Name);
                 }
                 else
                 {
-                    Console.WriteLine(move.Item1.Card.Name + " + " + move.Item2.Card.Name);
+                    Console.WriteLine(move.Cohordinates.Item1.Card.Name + " + " + move.Cohordinates.Item2.Card.Name);
                 }
             }
             Console.WriteLine();

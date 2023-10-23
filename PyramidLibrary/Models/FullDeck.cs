@@ -2,12 +2,25 @@
 
 public class FullDeck : IDeck
 {
-    public List<Card> Cards { get; set; }
+
+    public List<IPosition> Positions { get; set; }
 
     public FullDeck()
     {
-        Cards = CreateCards();
-        Shuffle(Cards);
+        List<Card> cards = CreateCards();
+        Shuffle(cards);
+        Positions = new();
+        AssignPositions(cards);
+    }
+
+    private void AssignPositions(List<Card> cards)
+    {
+        int i = 0;
+        foreach (Card card in cards)
+        {
+            Positions.Add(new DeckPosition(i, card));
+            i++;
+        }
     }
 
     private List<Card> CreateCards()

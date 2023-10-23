@@ -1,38 +1,45 @@
 ﻿
 using System.Collections.Generic;
+using System.Numerics;
 using PyramidCA;
 using PyramidLibrary.Models;
 using PyramidLibrary.Services;
 
 
-Board board = new(5);
+Player player = new();
 
+Presentation.PresentBoard(player.Board);
 
+Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
 
-// disporre carte nella in hand deck
+Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
 
-//InHandDeck inHandDeck = new InHandDeck();
-//inHandDeck.DeckPositions = DeckPreparation.PopulateDeckPositions(deck);
+Console.WriteLine();
 
-// inizializzare mazzo scarti
-List<Card> descardedCards = new List<Card>();
 
 //// iniziare while loop
+///
+
+// 
 
 // fare elenco carte disponibili
-List<IPosition> availableBoardPositions = AvailableMoves.GetAvailableBoardPositions(board);
+//player.DoMove(board.AvailableMoves[0]);
 
-// fare elenco mosse disponibili
-List<(IPosition, IPosition)> availableBoardMoves = AvailableMoves.GetAvailableBoardMoves(board, availableBoardPositions);
+//board.GetAvailableBoardPositions();
+//board.GetAvailableMoves();
+
+//player.DoMove(board.AvailableMoves[0]);
+
+
+//// fare elenco mosse disponibili
+//List<(IPosition, IPosition)> availableBoardMoves = AvailableMoves.GetAvailableBoardMoves(board, availableBoardPositions);
 
 //List<(IPosition, IPosition)> availableDeckMoves = AvailableMoves.GetAvailableDeckMoves(board, inHandDeck, availableBoardPositions);
 
 // PRESENTATION
 //Presentation.PresentAvailableBoardPositions(availableBoardPositions);
 
-Presentation.PresentBoard(board);
 
-Presentation.PresentAvailableBoardMoves(availableBoardMoves);
 
 //Presentation.PresentAvailableDeckMoves(availableDeckMoves);
 

@@ -2,5 +2,5 @@
 
 public interface IDeck
 {
-    List<Card> Cards { get; set; }
+    List<IPosition> Positions { get; set; }
 }
