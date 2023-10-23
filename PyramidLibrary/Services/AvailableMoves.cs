@@ -8,10 +8,10 @@ public static class AvailableMoves
     {
         List<IPosition> availableBoardPositions = new List<IPosition>();
 
-        for (int i = 0; i < board.ListOfListPositions.Count - 1; i++)
+        for (int i = 0; i < board.PyramidOfCards.Count - 1; i++)
         {
-            List<IPosition> currentRowPositions = board.ListOfListPositions[i];
-            List<IPosition> nextRowPositions = board.ListOfListPositions[i+1];
+            List<IPosition> currentRowPositions = board.PyramidOfCards[i];
+            List<IPosition> nextRowPositions = board.PyramidOfCards[i+1];
 
             for (int k = 0; k < currentRowPositions.Count; k++)
             {

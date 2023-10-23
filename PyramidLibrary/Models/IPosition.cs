@@ -1,8 +1,7 @@
-﻿namespace PyramidLibrary.Models
+﻿namespace PyramidLibrary.Models;
+
+public interface IPosition
 {
-    public interface IPosition
-    {
-        Card? Card { get; set; }
-        (int, int) Id { get; set; }
-    }
+    Card? Card { get; set; }
+    (int, int) Id { get; set; }
 }

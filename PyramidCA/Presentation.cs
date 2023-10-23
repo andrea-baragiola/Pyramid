@@ -12,9 +12,9 @@ namespace PyramidCA
         public static void PresentBoard(Board board)
         {
             Console.WriteLine("Board");
-            int counter = board.ListOfListPositions.Count();
+            int counter = board.PyramidOfCards.Count();
 
-            foreach (List<IPosition> listOfposition in board.ListOfListPositions)
+            foreach (List<IPosition> listOfposition in board.PyramidOfCards)
             {
                 for (int i = 0; i < counter; i++)
                 {
