@@ -12,12 +12,12 @@ public class Board
     {
         InHandDeck = new FullDeck();
         DiscardedCardsDeck = new EmptyDeck();
+
         List<List<Card>> cardGroups = PickCardsForBoard(numberOfRows);
         PopulateAllRows(cardGroups);
+
         GetAvailableBoardPositions();
         GetAvailableMoves();
-
-        //AvailableMoves = 
     }
 
     public void GetAvailableBoardPositions()
