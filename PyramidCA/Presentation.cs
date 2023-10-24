@@ -45,9 +45,9 @@ namespace PyramidCA
             Console.WriteLine();
         }
 
-        public static void PresentAvailableDescardedDeckPositions(List<IPosition> availableDiscardedPositions)
+        public static void PresentDescardedDeckPositions(List<IPosition> availableDiscardedPositions)
         {
-            Console.WriteLine("AvailableDiscardedCards");
+            Console.WriteLine("DiscardedCards");
             foreach (IPosition position in availableDiscardedPositions)
             {
                 Console.Write(position.Card.Name + ", ");
@@ -59,16 +59,18 @@ namespace PyramidCA
         public static void PresentAvailableMoves(List<Move> availableBoardMoves)
         {
             Console.WriteLine("AvailableMoves");
+            int moveIndex = 0;
             foreach (Move move in availableBoardMoves)
             {
                 if (move.Cohordinates.Item2 == null)
                 {
-                    Console.WriteLine(move.Cohordinates.Item1.Card.Name);
+                    Console.WriteLine($"n.{moveIndex}: {move.Cohordinates.Item1.Card.Name}");
                 }
                 else
                 {
-                    Console.WriteLine(move.Cohordinates.Item1.Card.Name + " + " + move.Cohordinates.Item2.Card.Name);
+                    Console.WriteLine($"n.{moveIndex}: {move.Cohordinates.Item1.Card.Name} + {move.Cohordinates.Item2.Card.Name}");
                 }
+                moveIndex++;
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -82,6 +84,12 @@ namespace PyramidCA
                 Console.WriteLine(move.Item1.Card.Name + " + " + move.Item2.Card.Name);
             }
             Console.WriteLine();
+        }
+
+        public static int AskWhichMove(List<Move> moveList)
+        {
+            Console.Write($"Which move do you want to perform? (between n.0 and n.{moveList.Count - 1}) : ");
+            return int.Parse(Console.ReadLine());
         }
     }
 }

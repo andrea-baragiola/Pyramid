@@ -6,10 +6,12 @@ public class Player
     public bool isWinner { get; set; } = false;
     public bool isLooser { get; set; } = false;
 
+
     public Player(int numberOfPyramidRows)
     {
         Board = new(numberOfPyramidRows);
     }
+
 
     public void ExecuteMove(int moveIndex)
     {
@@ -26,36 +28,34 @@ public class Player
 
     private void ExecuteBoardMove(Move move)
     {
-        List<IPosition> positionsToMove = new() { move.Cohordinates.Item1, move.Cohordinates.Item2 };
-        foreach (IPosition positionToMove in positionsToMove)
+        List<IPosition> boardPositionsToRemove = new() { move.Cohordinates.Item1, move.Cohordinates.Item2 };
+        foreach (IPosition boardPositionToRemove in boardPositionsToRemove)
         {
-            if (positionToMove == null)
+            if (boardPositionToRemove == null)
             {
                 continue;
             }
             else
             {
-                AddCardToDescardDeck(positionToMove.Card);
-
-                int row = positionToMove.Id.Item1;
-                foreach (IPosition boardposition in Board.PyramidOfCards[row])
-                {
-                    if (boardposition == positionToMove)
-                    {
-                        boardposition.Card = null; break;
-                    }
-                }
-            } 
+                AddCardToDescardDeck(boardPositionToRemove.Card);
+                DeleteCardFromBoard(boardPositionToRemove);
+            }
         }
     }
 
     private void ExecuteDeckMove(Move move)
     {
         IPosition deckPosition = move.Cohordinates.Item1;
-        IPosition boardPositionToRemove = move.Cohordinates.Item2;
-
         AddCardToDescardDeck(deckPosition.Card);
+        DeletePositionFromInHandDeck(deckPosition);
 
+        IPosition boardPositionToRemove = move.Cohordinates.Item2;
+        AddCardToDescardDeck(boardPositionToRemove.Card);
+        DeleteCardFromBoard(boardPositionToRemove);
+    }
+
+    private void DeletePositionFromInHandDeck(IPosition deckPosition)
+    {
         for (int i = 0; i < Board.InHandDeck.Positions.Count; i++)
         {
             if (Board.InHandDeck.Positions[i] == deckPosition)
@@ -63,21 +63,14 @@ public class Player
                 Board.InHandDeck.Positions.RemoveAt(i); break;
             }
         }
+    }
 
-        foreach (IPosition deckInHandposition in Board.InHandDeck.Positions)
-        {
-            if (deckInHandposition == deckPosition)
-            {
-                deckInHandposition.Card = null; break;
-            }
-        }
-
-        AddCardToDescardDeck(boardPositionToRemove.Card);
-
-        int row = boardPositionToRemove.Id.Item1;
+    private void DeleteCardFromBoard(IPosition positionToMove)
+    {
+        int row = positionToMove.Id.Item1;
         foreach (IPosition boardposition in Board.PyramidOfCards[row])
         {
-            if (boardposition == boardPositionToRemove)
+            if (boardposition == positionToMove)
             {
                 boardposition.Card = null; break;
             }
