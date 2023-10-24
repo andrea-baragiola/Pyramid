@@ -1,6 +1,7 @@
-﻿namespace PyramidLibrary.Models;
-
-public interface IDeck
+﻿namespace PyramidLibrary.Models
 {
-    List<IPosition> Positions { get; set; }
+    public interface IDeck
+    {
+        List<Card> Cards { get; set; }
+    }
 }

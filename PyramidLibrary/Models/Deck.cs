@@ -1,26 +1,22 @@
 ﻿namespace PyramidLibrary.Models;
 
-public class FullDeck : IDeck
+public class Deck : IDeck
 {
 
-    public List<IPosition> Positions { get; set; }
+    public List<Card> Cards { get; set; }
 
-    public FullDeck()
+    public Deck()
     {
-        List<Card> cards = CreateCards();
-        Shuffle(cards);
-        Positions = new();
-        AssignPositions(cards);
+        Cards = new();
+        PopulateDeck();
     }
 
-    private void AssignPositions(List<Card> cards)
+    private void PopulateDeck()
     {
-        int i = 0;
-        foreach (Card card in cards)
-        {
-            Positions.Add(new DeckPosition(i, card));
-            i++;
-        }
+        List<Card> cardList = CreateCards();
+        Shuffle(cardList);
+        Cards = cardList;
+
     }
 
     private List<Card> CreateCards()
@@ -28,7 +24,7 @@ public class FullDeck : IDeck
         int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         string[] suitsList = { "H", "D", "C", "S" };
 
-        List<Card> deck = new List<Card>();
+        List<Card> deck = new();
         foreach (int number in numberList)
         {
             foreach (string suit in suitsList)
@@ -52,4 +48,12 @@ public class FullDeck : IDeck
             list[n] = value;
         }
     }
+
+    public Card GiveCard(int x)
+    {
+        Card output = Cards[x];
+        Cards.RemoveAt(x);
+        return output;
+    }
 }
+
