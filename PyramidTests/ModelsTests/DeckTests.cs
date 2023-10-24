@@ -1,7 +1,7 @@
 using PyramidLibrary.Models;
 using FluentAssertions;
 
-namespace PyramidTests;
+namespace PyramidTests.ModelsTests;
 
 public class DeckTests
 {
