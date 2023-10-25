@@ -14,7 +14,7 @@ public class DiscardDeckTests
     [InlineData(1, "H")]
     [InlineData(5, "C")]
     [InlineData(10, "D")]
-    public void ReceiveCard_ShouldSuceed(int number, string suit)
+    public void ReceiveCard_ShouldSucceed(int number, string suit)
     {
         // arrange
         DiscardDeck discardDeck = new();

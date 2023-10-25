@@ -73,7 +73,7 @@
 
 //    private List<Move> GetAvailableDeckMoves()
 //    {
-//        List<Move> availableMoves = new ();
+//        List<Move> availableMoves = new();
 
 //        for (int i = 0; i < AvailableBoardPositions.Count; i++)
 //        {
@@ -81,7 +81,7 @@
 //            {
 //                if (AvailableBoardPositions[i].Card.Number == 10 - InHandDeck.Positions[k].Card.Number)
 //                {
-//                    availableMoves.Add(new Move(InHandDeck.Positions[k] , AvailableBoardPositions[i]));
+//                    availableMoves.Add(new Move(InHandDeck.Positions[k], AvailableBoardPositions[i]));
 //                }
 //            }
 //        }
@@ -103,7 +103,7 @@
 
 //        List<Card> emptyCardSection = new();
 
-//        for (int i = 0; i < rowIndex+1; i++)
+//        for (int i = 0; i < rowIndex + 1; i++)
 //        {
 //            emptyCardSection.Add(null);
 //        }
