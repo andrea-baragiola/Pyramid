@@ -2,6 +2,10 @@
 {
     public interface IDeck
     {
-        List<Card> Cards { get; set; }
+        IEnumerable<Card> Cards { get; }
+
+        Card DrowCard();
+
+        IEnumerable<Card> DrowCards(int numberOfCards);
     }
 }

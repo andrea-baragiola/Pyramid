@@ -2,7 +2,7 @@
 {
     public interface IBoard
     {
-        Deck Deck { get; }
+        IDeck Deck { get; }
         DiscardDeck DiscardDeck { get; }
         int Id { get; }
         Pyramid Pyramid { get; }

@@ -34,7 +34,7 @@ public class BoardTests
         Deck deck = new();
 
         // act
-        Action act = () => deck.GiveCard(cardIndex);
+        Action act = () => deck.DrowCard(cardIndex);
         // assert
         act.Should().Throw<Exception>();
     }

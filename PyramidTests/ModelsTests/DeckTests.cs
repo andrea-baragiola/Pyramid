@@ -26,7 +26,7 @@ public class DeckTests
         // arrange
         Deck deck = new();
         // act
-        Card card = deck.GiveCard(cardIndex);
+        Card card = deck.DrowCard(cardIndex);
         // assert
         card.Should().NotBeNull();
         card.Should().BeOfType<Card>();
@@ -41,7 +41,7 @@ public class DeckTests
         Deck deck = new();
 
         // act
-        Action act = () => deck.GiveCard(cardIndex);
+        Action act = () => deck.DrowCard(cardIndex);
         // assert
         act.Should().Throw<Exception>();
     }

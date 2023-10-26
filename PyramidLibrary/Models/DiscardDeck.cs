@@ -3,16 +3,24 @@
 public class DiscardDeck : IDeck
 {
 
-    public List<Card> Cards { get; set; }
+    public IEnumerable<Card> Cards => _cards;
 
-    public DiscardDeck()
-    {
-        Cards = new();
-    }
+    protected List<Card> _cards = new List<Card>();
+
 
     public void ReceiveCard(Card card)
     {
-        Cards.Add(card);
+        _cards.Add(card);
+    }
+
+    public Card DrowCard()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Card> DrowCards(int numberOfCards)
+    {
+        throw new NotImplementedException();
     }
 }
 

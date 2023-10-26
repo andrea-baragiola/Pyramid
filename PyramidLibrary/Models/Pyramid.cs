@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PyramidLibrary.CustomExceptions;
+﻿using PyramidLibrary.CustomExceptions;
 
 namespace PyramidLibrary.Models
 {
@@ -11,10 +6,11 @@ namespace PyramidLibrary.Models
     {
         public List<List<Card?>> CardRows { get; private set; }
 
-        public Pyramid(int numberOfRows)
+        public Pyramid(IDeck deck, int numberOfRows)
         {
             CardRows = new();
             CreateCardRows(numberOfRows);
+            FillPyramid(deck, numberOfRows);
         }
 
         private void CreateCardRows(int numberOfRows)
@@ -29,6 +25,31 @@ namespace PyramidLibrary.Models
                 }
                 CardRows.Add(cards);
                 rowIndex++;
+            }
+        }
+
+        private void FillPyramid(IDeck deck, int numberOfRows)
+        {
+            int cardsToDrow = numberOfRows * (numberOfRows + 1) / 2;
+            List<Card> cardsForPyramid = deck.DrowCards(cardsToDrow).ToList();
+            PlaceCardsInPyramid(numberOfRows, cardsForPyramid);
+        }
+
+
+        private void PlaceCardsInPyramid(int numberOfRows, List<Card> cardsForPyramid)
+        {
+
+            for (int j = 0; j < numberOfRows; j++)
+            {
+                int rowIndex = j;
+                int cardIndex = 0;
+                for (int i = 0; i <= rowIndex; i++)
+                {
+
+                    ReceiveCard(cardsForPyramid[0], rowIndex, cardIndex);
+                    cardsForPyramid.RemoveAt(0);
+                    cardIndex++;
+                }
             }
         }
 
