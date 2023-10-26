@@ -3,16 +3,17 @@
 public class DiscardDeck : IDeck
 {
 
-    public List<Card> Cards { get; set; }
+    public IEnumerable<Card> Cards => _cards;
+    protected List<Card> _cards;
 
     public DiscardDeck()
     {
-        Cards = new();
+        _cards = new();
     }
 
     public void ReceiveCard(Card card)
     {
-        Cards.Add(card);
+        _cards.Add(card);
     }
 }
 

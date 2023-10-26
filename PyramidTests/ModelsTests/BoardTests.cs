@@ -1,28 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using PyramidLibrary.Models;
 
 namespace PyramidTests.ModelsTests;
 
 public class BoardTests
 {
-    [Theory]
-    [InlineData(1)]
-    [InlineData(3)]
-    [InlineData(7)]
-    public void TakeCorrectAmountOfCardsFromDeck_ShouldSucceed(int numerOfRows)
+    [Fact]
+    public void BoardDeck_ShouldHave39Cards()
     {
         // arrange
-        Board board = new(numerOfRows);
+        List<Card> cardList = new();
+        foreach (int number in Enumerable.Range(1, 40))
+        {
+            cardList.Add(new Card(number, "A"));
+        }
+        CustomDeck deck = new (cardList);
+        
         // act
-        Card card = deck.GiveCard(cardIndex);
+        CustomBoard board = new CustomBoard(1, deck);
+
         // assert
-        card.Should().NotBeNull();
-        card.Should().BeOfType<Card>();
+        board.Deck.Cards.Should().HaveCount(39);
+        board.Pyramid.CardRows[0][0].Name.Should().Be("1A");
+    }
+
+    [Fact]
+    public void BoardDeck_ShouldHave25Cards()
+    {
+        // arrange
+        List<Card> cardList = new();
+        foreach (int number in Enumerable.Range(1, 40))
+        {
+            cardList.Add(new Card(number, "A"));
+        }
+        CustomDeck deck = new(cardList);
+
+        // act
+        CustomBoard board = new CustomBoard(5, deck);
+
+        // assert
+        board.Deck.Cards.Should().HaveCount(25);
+        board.Pyramid.CardRows[0][0].Name.Should().Be("1A");
+        board.Pyramid.CardRows[1][1].Name.Should().Be("3A");
+        board.Pyramid.CardRows[3][3].Name.Should().Be("10A");
     }
 
     [Theory]

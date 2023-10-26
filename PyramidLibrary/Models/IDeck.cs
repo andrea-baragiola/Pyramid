@@ -2,6 +2,6 @@
 {
     public interface IDeck
     {
-        List<Card> Cards { get; set; }
+        IEnumerable<Card> Cards { get; }
     }
 }

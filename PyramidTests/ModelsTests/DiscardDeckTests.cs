@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using PyramidLibrary.Models;
 
 namespace PyramidTests.ModelsTests;
@@ -22,10 +17,14 @@ public class DiscardDeckTests
 
         // act
         discardDeck.ReceiveCard(card);
+        Action act = () => discardDeck.Cards.ElementAt(1);
 
         // assert
         discardDeck.Cards.Should().NotBeEmpty()
             .And.HaveCount(1);
-        discardDeck.Cards[0].Should().Be(card);
+        discardDeck.Cards.ElementAt(0).Should().Be(card);
+
+        act.Should().Throw<ArgumentOutOfRangeException>();
+
     }
 }

@@ -10,7 +10,7 @@ public class DeckTests
     {
         // arrange
         // act
-        IDeck deck = new Deck();
+        Deck deck = new Deck();
 
         //assert
         deck.Cards.Should().NotBeEmpty()

@@ -1,33 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PyramidLibrary.Models
+﻿namespace PyramidLibrary.Models
 {
     public class Board : IBoard
     {
-        public int Id { get; private set; }
-        public Pyramid Pyramid { get; private set; }
-        public Deck Deck { get; private set; }
-        public DiscardDeck DiscardDeck { get; private set; }
+        public Pyramid Pyramid { get; protected set; }
+        public Deck Deck { get; protected set; }
+        public DiscardDeck DiscardDeck { get; protected set; }
 
-        public Board(int numberOfRows)
+        public Board(int numberOfRows = 7)
         {
             Pyramid = new(numberOfRows);
-            Deck = new Deck();
+            Deck = new();
             DiscardDeck = new();
-            FillPyramid(numberOfRows);
-        }
-
-        private void FillPyramid(int numberOfRows)
-        {
             List<Card> cardsForPyramid = TakeCorrectAmountOfCardsFromDeck(numberOfRows);
             PlaceCardsInPyramid(numberOfRows, cardsForPyramid);
         }
 
-        private List<Card> TakeCorrectAmountOfCardsFromDeck(int numberOfRows)
+        protected List<Card> TakeCorrectAmountOfCardsFromDeck(int numberOfRows)
         {
             List<Card> cards = new();
             int sum = 0;
@@ -43,7 +31,7 @@ namespace PyramidLibrary.Models
             return cards;
         }
 
-        private void PlaceCardsInPyramid(int numberOfRows, List<Card> cardsForPyramid)
+        protected void PlaceCardsInPyramid(int numberOfRows, List<Card> cardsForPyramid)
         {
 
             for (int j = 0; j < numberOfRows; j++)

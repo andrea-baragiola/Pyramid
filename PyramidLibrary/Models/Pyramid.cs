@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PyramidLibrary.CustomExceptions;
+﻿using PyramidLibrary.CustomExceptions;
 
 namespace PyramidLibrary.Models
 {
     public class Pyramid
     {
-        public List<List<Card?>> CardRows { get; private set; }
+        public List<List<Card?>> CardRows { get; protected set; }
 
         public Pyramid(int numberOfRows)
         {
@@ -17,7 +12,7 @@ namespace PyramidLibrary.Models
             CreateCardRows(numberOfRows);
         }
 
-        private void CreateCardRows(int numberOfRows)
+        protected void CreateCardRows(int numberOfRows)
         {
             int rowIndex = 0;
             for (int i = 0; i < numberOfRows + 1; i++)
