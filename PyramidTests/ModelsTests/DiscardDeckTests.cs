@@ -26,6 +26,6 @@ public class DiscardDeckTests
         // assert
         discardDeck.Cards.Should().NotBeEmpty()
             .And.HaveCount(1);
-        discardDeck.Cards[0].Should().Be(card);
+        discardDeck.Cards.ElementAt(0).Should().Be(card);
     }
 }

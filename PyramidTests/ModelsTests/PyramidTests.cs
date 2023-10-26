@@ -19,7 +19,7 @@ namespace PyramidTests.ModelsTests
         {
             // arrange
             // act
-            Pyramid pyramid = new(numberOfRows);
+            Pyramid pyramid = new(new Deck(),numberOfRows);
 
             // assert
             pyramid.CardRows.Should().NotBeEmpty()
@@ -33,7 +33,7 @@ namespace PyramidTests.ModelsTests
         public void GiveCard_ShouldSucceed(int rowIndex, int cardIndex)
         {
             // arrange
-            Pyramid pyramid = new(4);
+            Pyramid pyramid = new(new Deck(), 4);
 
             // act
             Card givenCard = pyramid.GiveCard(rowIndex, cardIndex);
@@ -50,7 +50,7 @@ namespace PyramidTests.ModelsTests
         public void GiveCard_ShouldThrowOutOfRangeException(int rowIndex, int cardIndex)
         {
             // arrange
-            Pyramid pyramid = new(4);
+            Pyramid pyramid = new(new Deck(), 4);
 
             // act
             Action act = () => pyramid.GiveCard(rowIndex, cardIndex);
@@ -67,7 +67,7 @@ namespace PyramidTests.ModelsTests
         public void ReceiveCard_ShouldSucceed(int number, string suit, int rowIndex, int cardIndex)
         {
             // arrange
-            Pyramid pyramid = new(4);
+            Pyramid pyramid = new(new Deck(), 4);
             Card receivedCard = new(number, suit);
 
             // act
@@ -85,7 +85,7 @@ namespace PyramidTests.ModelsTests
         public void ReceiveCard_ShouldThrowSpotNotNullException(int number, string suit, int rowIndex, int cardIndex)
         {
             // arrange
-            Pyramid pyramid = new(4);
+            Pyramid pyramid = new(new Deck(), 4);
             Card receivedCard = new(number, suit);
             pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
 
@@ -103,7 +103,7 @@ namespace PyramidTests.ModelsTests
         public void ReceiveCard_ShouldThrowArgumentOutOfRangeException(int number, string suit, int rowIndex, int cardIndex)
         {
             // arrange
-            Pyramid pyramid = new(4);
+            Pyramid pyramid = new(new Deck(), 4);
             Card receivedCard = new(number, suit);
 
             // act
