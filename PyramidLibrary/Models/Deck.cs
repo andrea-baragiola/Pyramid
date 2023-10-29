@@ -51,7 +51,7 @@ public class Deck : IDeck
     public IEnumerable<Card> DrowCards(int numberOfCards)
     {
 
-        var output = _cards.Take(numberOfCards);
+        var output = _cards.Take(numberOfCards).ToList();
         _cards.RemoveRange(0, numberOfCards);
         return output;
     }

@@ -14,7 +14,8 @@ namespace PyramidTests.ModelsTests
         [Theory]
         [InlineData(1)]
         [InlineData(3)]
-        [InlineData(7)]
+        [InlineData(5)]
+        [InlineData(8)]
         public void CreatePyramid_ShouldSucceed(int numberOfRows)
         {
             // arrange
@@ -33,7 +34,7 @@ namespace PyramidTests.ModelsTests
         public void GiveCard_ShouldSucceed(int rowIndex, int cardIndex)
         {
             // arrange
-            Pyramid pyramid = new(new Deck(), 4);
+            Pyramid pyramid = new(new CustomDeck(), 4);
 
             // act
             Card givenCard = pyramid.GiveCard(rowIndex, cardIndex);
