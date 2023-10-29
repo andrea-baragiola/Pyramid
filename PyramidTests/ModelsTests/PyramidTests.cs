@@ -19,30 +19,50 @@ namespace PyramidTests.ModelsTests
         public void CreatePyramid_ShouldSucceed(int numberOfRows)
         {
             // arrange
+            CustomDeck customDeck = new();
+
             // act
-            Pyramid pyramid = new(new Deck(),numberOfRows);
+            Pyramid pyramid = new(customDeck, numberOfRows);
 
             // assert
             pyramid.CardRows.Should().NotBeEmpty()
                 .And.HaveCount(numberOfRows + 1);
+            customDeck.Cards.Last<Card>().Name.Should().Be("40A");
+            pyramid.CardRows[0][0].Name.Should().Be("1A");
+
+
         }
 
-        [Theory]
-        [InlineData(0, 0)]
-        [InlineData(1, 0)]
-        [InlineData(3, 3)]
-        public void GiveCard_ShouldSucceed(int rowIndex, int cardIndex)
+        [Fact]
+        public void GiveCard_FirstCardShouldSucceed()
         {
             // arrange
-            Pyramid pyramid = new(new CustomDeck(), 4);
+            CustomDeck customDeck = new();
+            Pyramid pyramid = new(customDeck, 5);
 
             // act
-            Card givenCard = pyramid.GiveCard(rowIndex, cardIndex);
+            Card givenCard = pyramid.GiveCard(0, 0);
 
             // assert
-            Card originCard = pyramid.CardRows[rowIndex][cardIndex];
-            givenCard.Should().Be(originCard);
+            givenCard.Name.Should().Be("1A");
+            pyramid.CardRows[0][0].Should().BeNull();
         }
+
+        [Fact]
+        public void GiveCard_MiddleCardShouldSucceed()
+        {
+            // arrange
+            CustomDeck customDeck = new();
+            Pyramid pyramid = new(customDeck, 5);
+
+            // act
+            Card givenCard = pyramid.GiveCard(3, 1);
+
+            // assert
+            givenCard.Name.Should().Be("8A");
+            pyramid.CardRows[3][1].Should().BeNull();
+        }
+
 
         [Theory]
         [InlineData(0, 1)]
