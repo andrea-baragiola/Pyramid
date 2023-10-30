@@ -2,7 +2,7 @@
 
 namespace PyramidLibrary.Models
 {
-    public class Pyramid
+    public class Pyramid : IPyramid
     {
         public List<List<Card?>> CardRows { get; private set; }
 

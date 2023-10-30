@@ -3,8 +3,8 @@
     public interface IBoard
     {
         IDeck Deck { get; }
-        DiscardDeck DiscardDeck { get; }
+        IDeck DiscardDeck { get; }
         int Id { get; }
-        Pyramid Pyramid { get; }
+        IPyramid Pyramid { get; }
     }
 }
