@@ -55,5 +55,12 @@ public class Deck : IDeck
         _cards.RemoveRange(0, numberOfCards);
         return output;
     }
+
+    public Card GiveCard(int x)
+    {
+        Card output = _cards[x];
+        _cards.RemoveAt(x);
+        return output;
+    }
 }
 
