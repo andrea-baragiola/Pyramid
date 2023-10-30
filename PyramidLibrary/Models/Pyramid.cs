@@ -60,7 +60,7 @@ namespace PyramidLibrary.Models
             return outputCard;
         }
 
-        public void ReceiveCard(Card card, int rowIndex, int cardIndex)
+        private void ReceiveCard(Card card, int rowIndex, int cardIndex)
         {
             if (CardRows[rowIndex][cardIndex] != null)
             {

@@ -42,6 +42,7 @@ public class DeckTests
 
         // act
         Action act = () => deck.DrowCard();
+
         // assert
         act.Should().Throw<Exception>();
     }

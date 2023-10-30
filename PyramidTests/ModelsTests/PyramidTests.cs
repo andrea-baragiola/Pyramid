@@ -29,6 +29,8 @@ namespace PyramidTests.ModelsTests
                 .And.HaveCount(numberOfRows + 1);
             customDeck.Cards.Last<Card>().Name.Should().Be("40A");
             pyramid.CardRows[0][0].Name.Should().Be("1A");
+            pyramid.CardRows[numberOfRows][0].Should().BeNull();
+            pyramid.CardRows[numberOfRows][numberOfRows].Should().BeNull();
 
 
         }
@@ -75,60 +77,6 @@ namespace PyramidTests.ModelsTests
 
             // act
             Action act = () => pyramid.GiveCard(rowIndex, cardIndex);
-
-            // assert
-            act.Should().Throw<ArgumentOutOfRangeException>();
-        }
-
-
-        [Theory]
-        [InlineData(1, "C", 0, 0)]
-        [InlineData(10, "D", 3, 2)]
-        [InlineData(5, "H", 3, 0)]
-        public void ReceiveCard_ShouldSucceed(int number, string suit, int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-            Card receivedCard = new(number, suit);
-
-            // act
-            pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
-
-            // assert
-            Card cardInPyramid = pyramid.CardRows[rowIndex][cardIndex];
-            cardInPyramid.Should().Be(receivedCard);
-        }
-
-        [Theory]
-        [InlineData(1, "C", 0, 0)]
-        [InlineData(10, "D", 3, 2)]
-        [InlineData(5, "H", 3, 0)]
-        public void ReceiveCard_ShouldThrowSpotNotNullException(int number, string suit, int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-            Card receivedCard = new(number, suit);
-            pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
-
-            // act
-            Action act = () => pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
-
-            // assert
-            act.Should().Throw<SpotNotNullException>();
-        }
-
-        [Theory]
-        [InlineData(1, "C", 0, 1)]
-        [InlineData(10, "D", 1, 2)]
-        [InlineData(5, "H", 5, 0)]
-        public void ReceiveCard_ShouldThrowArgumentOutOfRangeException(int number, string suit, int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-            Card receivedCard = new(number, suit);
-
-            // act
-            Action act = () => pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
 
             // assert
             act.Should().Throw<ArgumentOutOfRangeException>();
