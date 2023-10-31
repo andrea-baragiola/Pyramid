@@ -2,9 +2,9 @@
 
 public class Player
 {
-    public Board Board { get; set; }
-    public bool isWinner { get; set; } = false;
-    public bool isLooser { get; set; } = false;
+    public Board Board { get; }
+    public bool isWinner { get; } = false;
+    public bool isLooser { get; } = false;
 
     public List<DeckPyramidMove> AvailableDeckMoves { get; set; }
     public List<PyramidPyramidMove> AvailablePyramidMoves { get; set; }

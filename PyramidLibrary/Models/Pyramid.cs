@@ -2,9 +2,9 @@
 
 namespace PyramidLibrary.Models
 {
-    public class Pyramid : IPyramid
+    public class Pyramid
     {
-        public List<List<Card?>> CardRows { get; private set; }
+        public List<List<Card?>> CardRows { get; }
 
         public Pyramid(IDeck deck, int numberOfRows)
         {
