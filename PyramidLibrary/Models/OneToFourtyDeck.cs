@@ -1,9 +1,9 @@
 ﻿namespace PyramidLibrary.Models;
 
-public class CustomDeck : Deck
+public class OneToFourtyDeck : Deck
 {
 
-    public CustomDeck()
+    public OneToFourtyDeck()
     {
 
         List<Card> cardList = new();
@@ -11,7 +11,7 @@ public class CustomDeck : Deck
         {
             cardList.Add(new Card(number, "A"));
         }
-        _cards = cardList;
+        Cards = cardList;
     }   
     
 }

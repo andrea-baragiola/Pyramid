@@ -3,7 +3,7 @@
 public class DiscardDeck : IDeck
 {
 
-    public IEnumerable<Card> Cards => _cards;
+    public List<Card> Cards => _cards;
 
     protected List<Card> _cards = new List<Card>();
 

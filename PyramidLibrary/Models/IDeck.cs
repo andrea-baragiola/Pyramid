@@ -2,7 +2,7 @@
 {
     public interface IDeck
     {
-        IEnumerable<Card> Cards { get; }
+        List<Card> Cards { get; }
 
         Card DrowCard();
         Card GiveCard(int x);

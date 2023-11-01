@@ -19,7 +19,7 @@ namespace PyramidTests.ModelsTests
         public void CreatePyramid_ShouldSucceed(int numberOfRows)
         {
             // arrange
-            CustomDeck customDeck = new();
+            OneToFourtyDeck customDeck = new();
 
             // act
             Pyramid pyramid = new(customDeck, numberOfRows);
@@ -39,7 +39,7 @@ namespace PyramidTests.ModelsTests
         public void GiveCard_FirstCardShouldSucceed()
         {
             // arrange
-            CustomDeck customDeck = new();
+            OneToFourtyDeck customDeck = new();
             Pyramid pyramid = new(customDeck, 5);
 
             // act
@@ -54,7 +54,7 @@ namespace PyramidTests.ModelsTests
         public void GiveCard_MiddleCardShouldSucceed()
         {
             // arrange
-            CustomDeck customDeck = new();
+            OneToFourtyDeck customDeck = new();
             Pyramid pyramid = new(customDeck, 5);
 
             // act

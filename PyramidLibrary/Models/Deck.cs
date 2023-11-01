@@ -3,13 +3,11 @@
 public class Deck : IDeck
 {
 
-    public IEnumerable<Card> Cards => _cards;
-
-    protected List<Card> _cards;
+    public List<Card> Cards { get; protected set; }
 
     public Deck()
     {
-        _cards = CreateCards();
+        Cards = CreateCards();
         Shuffle();
     }
 
@@ -32,14 +30,14 @@ public class Deck : IDeck
     private void Shuffle()
     {
         Random rng = new Random();
-        int n = _cards.Count;
+        int n = Cards.Count;
         while (n > 1)
         {
             n--;
             int k = rng.Next(n + 1);
-            Card value = _cards[k];
-            _cards[k] = _cards[n];
-            _cards[n] = value;
+            Card value = Cards[k];
+            Cards[k] = Cards[n];
+            Cards[n] = value;
         }
     }
 
@@ -51,15 +49,15 @@ public class Deck : IDeck
     public IEnumerable<Card> DrowCards(int numberOfCards)
     {
 
-        var output = _cards.Take(numberOfCards).ToList();
-        _cards.RemoveRange(0, numberOfCards);
+        var output = Cards.Take(numberOfCards).ToList();
+        Cards.RemoveRange(0, numberOfCards);
         return output;
     }
 
     public Card GiveCard(int x)
     {
-        Card output = _cards[x];
-        _cards.RemoveAt(x);
+        Card output = Cards[x];
+        Cards.RemoveAt(x);
         return output;
     }
 }

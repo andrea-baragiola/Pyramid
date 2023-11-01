@@ -3,11 +3,10 @@
 public class Player
 {
     public Board Board { get; }
-    public bool isWinner { get; } = false;
-    public bool isLooser { get; } = false;
+    public bool isWinner { get; private set; } = false;
+    public bool isLooser { get; private set; } = false;
 
-    public List<DeckPyramidMove> AvailableDeckMoves { get; set; }
-    public List<PyramidPyramidMove> AvailablePyramidMoves { get; set; }
+
 
 
     public Player(int numberOfPyramidRows)
@@ -33,9 +32,15 @@ public class Player
         Board.DiscardDeck.ReceiveCard(cardFromPyramid2);
     }
 
+    public void DoSinglePyramidMove(SinglePyramidMove move)
+    {
+        Card cardFromPyramid = Board.Pyramid.GiveCard(move.PyramidCardRow, move.PyramidCardIndex);
+        Board.DiscardDeck.ReceiveCard(cardFromPyramid);
+    }
+
     public void CheckWinLoss()
     {
-        if (AvailableDeckMoves.Count == 0 && AvailablePyramidMoves.Count == 0)
+        if (Board.AvailableDeckPyramidMoves.Count == 0 && Board.AvailablePyramidPyramidMoves.Count == 0)
         {
             if (Board.Pyramid.CardRows[0][0] == null)
             {
