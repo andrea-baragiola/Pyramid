@@ -10,9 +10,9 @@ public class UnshuffledDeck : Deck
         string[] suitsList = { "H", "D", "C", "S" };
 
         List<Card> cardList = new();
-        foreach (int number in numberList)
+        foreach (string suit in suitsList)
         {
-            foreach (string suit in suitsList)
+            foreach (int number in numberList)
             {
                 cardList.Add(new Card(number, suit));
             }

@@ -9,7 +9,5 @@ public class SinglePyramidMove
     {
         PyramidCardRow = pyramidCardRow;
         PyramidCardIndex = pyramidCardIndex;
-
-
     }
 }

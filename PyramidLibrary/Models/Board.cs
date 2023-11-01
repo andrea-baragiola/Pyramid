@@ -13,9 +13,9 @@ namespace PyramidLibrary.Models
         public IDeck Deck { get; }
         public DiscardDeck DiscardDeck { get; }
 
-        public List<SinglePyramidMove> AvailableSinglePyramidMoves { get; set; }
-        public List<PyramidPyramidMove> AvailablePyramidPyramidMoves { get; set; }
-        public List<DeckPyramidMove> AvailableDeckPyramidMoves { get; set; }
+        public List<SinglePyramidMove> AvailableSinglePyramidMoves { get; set; } = new();
+        public List<PyramidPyramidMove> AvailablePyramidPyramidMoves { get; set; } = new();
+        public List<DeckPyramidMove> AvailableDeckPyramidMoves { get; set; } = new();
 
         private List<Position> AvailableBoardPositions { get; set; } = new();
 
@@ -24,12 +24,17 @@ namespace PyramidLibrary.Models
             Deck = deck;
             Pyramid = new Pyramid(Deck, numberOfRows);
             DiscardDeck = new DiscardDeck();
+            GetAllAvailableMoves();
+        }
+
+        public void GetAllAvailableMoves()
+        {
             GetAvailableBoardPositions();
             GetAvailableDeckPyramidMoves();
             GetAvailablePyramidPyramidMoves();
         }
 
-        public void GetAvailableBoardPositions()
+        private void GetAvailableBoardPositions()
         {
 
             for (int i = 0; i < Pyramid.CardRows.Count - 1; i++)
