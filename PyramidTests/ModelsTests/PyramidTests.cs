@@ -4,113 +4,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Utilities;
 using PyramidLibrary.CustomExceptions;
 using PyramidLibrary.Models;
 
-namespace PyramidTests.ModelsTests
+namespace PyramidTests.ModelsTests;
+
+public class PyramidTests
 {
-    public class PyramidTests
+    [Fact]
+    public void Test1()
     {
-        [Theory]
-        [InlineData(1)]
-        [InlineData(3)]
-        [InlineData(7)]
-        public void CreatePyramid_ShouldSucceed(int numberOfRows)
-        {
-            // arrange
-            // act
-            Pyramid pyramid = new(new Deck(),numberOfRows);
+        var deck = new FullDeck();
+        var sut = new Pyramid(deck, 5);
 
-            // assert
-            pyramid.CardRows.Should().NotBeEmpty()
-                .And.HaveCount(numberOfRows + 1);
-        }
+        var card = sut.Peek(1, 1);
+        card.Should().NotBeNull();
+        card.Number.Should().Be(1);
 
-        [Theory]
-        [InlineData(0, 0)]
-        [InlineData(1, 0)]
-        [InlineData(3, 3)]
-        public void GiveCard_ShouldSucceed(int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-
-            // act
-            Card givenCard = pyramid.GiveCard(rowIndex, cardIndex);
-
-            // assert
-            Card originCard = pyramid.CardRows[rowIndex][cardIndex];
-            givenCard.Should().Be(originCard);
-        }
-
-        [Theory]
-        [InlineData(0, 1)]
-        [InlineData(1, 2)]
-        [InlineData(5, 0)]
-        public void GiveCard_ShouldThrowOutOfRangeException(int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-
-            // act
-            Action act = () => pyramid.GiveCard(rowIndex, cardIndex);
-
-            // assert
-            act.Should().Throw<ArgumentOutOfRangeException>();
-        }
-
-
-        [Theory]
-        [InlineData(1, "C", 0, 0)]
-        [InlineData(10, "D", 3, 2)]
-        [InlineData(5, "H", 3, 0)]
-        public void ReceiveCard_ShouldSucceed(int number, string suit, int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-            Card receivedCard = new(number, suit);
-
-            // act
-            pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
-
-            // assert
-            Card cardInPyramid = pyramid.CardRows[rowIndex][cardIndex];
-            cardInPyramid.Should().Be(receivedCard);
-        }
-
-        [Theory]
-        [InlineData(1, "C", 0, 0)]
-        [InlineData(10, "D", 3, 2)]
-        [InlineData(5, "H", 3, 0)]
-        public void ReceiveCard_ShouldThrowSpotNotNullException(int number, string suit, int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-            Card receivedCard = new(number, suit);
-            pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
-
-            // act
-            Action act = () => pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
-
-            // assert
-            act.Should().Throw<SpotNotNullException>();
-        }
-
-        [Theory]
-        [InlineData(1, "C", 0, 1)]
-        [InlineData(10, "D", 1, 2)]
-        [InlineData(5, "H", 5, 0)]
-        public void ReceiveCard_ShouldThrowArgumentOutOfRangeException(int number, string suit, int rowIndex, int cardIndex)
-        {
-            // arrange
-            Pyramid pyramid = new(new Deck(), 4);
-            Card receivedCard = new(number, suit);
-
-            // act
-            Action act = () => pyramid.ReceiveCard(receivedCard, rowIndex, cardIndex);
-
-            // assert
-            act.Should().Throw<ArgumentOutOfRangeException>();
-        }
     }
+
+    [Fact]
+    public void Test2()
+    {
+        var deck = new FullDeck();
+        var sut = new Pyramid(deck, 5);
+
+        Action act = () => sut.Peek(1, 2);
+
+        act.Should().Throw<InvalidCardPositionException>();
+    }
+
+    [Fact]
+    public void Test3()
+    {
+        var deck = new FullDeck();
+        var sut = new Pyramid(deck, 5);
+
+        Action act = () => sut.Peek(6, 2);
+
+        act.Should().Throw<InvalidCardPositionException>();
+    }
+
+    [Fact]
+    public void Test4()
+    {
+        var deck = new FullDeck();
+        var sut = new Pyramid(deck, 5);
+
+        var card = sut.Peek(5, 5);
+        card.Should().NotBeNull();
+        card.Number.Should().Be(4);
+
+    }
+
 }

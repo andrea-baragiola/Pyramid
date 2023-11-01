@@ -17,7 +17,7 @@ public class BoardTests
     public void TakeCorrectAmountOfCardsFromDeck_ShouldSucceed(int numerOfRows)
     {
         // arrange
-        Deck deck = new Deck();
+        FullDeck deck = new FullDeck();
         Board board = new(numerOfRows, deck);
         // act
         Card card = deck.DrowCard();
@@ -32,11 +32,19 @@ public class BoardTests
     public void GiveCard_ShouldFail(int cardIndex)
     {
         // arrange
-        Deck deck = new();
+        FullDeck deck = new();
 
         // act
         Action act = () => deck.DrowCard();
         // assert
         act.Should().Throw<Exception>();
+    }
+
+    [Fact]
+    public void Test1()
+    {
+        var board = new Board(5, new FullDeck());
+
+        var move = new 
     }
 }

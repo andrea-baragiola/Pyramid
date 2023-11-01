@@ -1,6 +1,6 @@
 ﻿namespace PyramidLibrary.Models;
 
-public class CustomDeck : Deck
+public class CustomDeck : FullDeck
 {
 
     public CustomDeck(List<Card> inputList)

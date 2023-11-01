@@ -10,7 +10,7 @@ public class DeckTests
     {
         // arrange
         // act
-        IDeck deck = new Deck();
+        IDeck deck = new FullDeck();
 
         //assert
         deck.Cards.Should().NotBeEmpty()
@@ -24,7 +24,7 @@ public class DeckTests
     public void GiveCard_ShouldSucceed(int cardIndex)
     {
         // arrange
-        Deck deck = new();
+        FullDeck deck = new();
         // act
         Card card = deck.DrowCard();
         // assert
@@ -38,7 +38,7 @@ public class DeckTests
     public void GiveCard_ShouldFail(int cardIndex)
     {
         // arrange
-        Deck deck = new();
+        FullDeck deck = new();
 
         // act
         Action act = () => deck.DrowCard();

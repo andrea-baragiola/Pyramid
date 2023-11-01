@@ -4,72 +4,70 @@ namespace PyramidLibrary.Models
 {
     public class Pyramid
     {
-        public List<List<Card?>> CardRows { get; private set; }
+        private Card?[][] cardRows;
+        private Dictionary<Card, Tuple<int, int>> cardPositionLookUp;
 
-        public Pyramid(IDeck deck, int numberOfRows)
+        public Pyramid(FullDeck deck, int numberOfRows)
         {
-            CardRows = new();
-            CreateCardRows(numberOfRows);
-            FillPyramid(deck, numberOfRows);
-        }
-
-        private void CreateCardRows(int numberOfRows)
-        {
-            int rowIndex = 0;
-            for (int i = 0; i < numberOfRows + 1; i++)
-            {
-                List<Card> cards = new();
-                for (int j = 0; j < rowIndex + 1; j++)
-                {
-                    cards.Add(null);
-                }
-                CardRows.Add(cards);
-                rowIndex++;
-            }
-        }
-
-        private void FillPyramid(IDeck deck, int numberOfRows)
-        {
+            cardRows = new Card?[numberOfRows][];
             int cardsToDrow = numberOfRows * (numberOfRows + 1) / 2;
-            List<Card> cardsForPyramid = deck.DrowCards(cardsToDrow).ToList();
-            PlaceCardsInPyramid(numberOfRows, cardsForPyramid);
+            Stack<Card> cardsForPyramid = new Stack<Card>(deck.DrowCards(cardsToDrow).Reverse());
+
+            FillPyramid(numberOfRows, cardsForPyramid);
         }
 
-
-        private void PlaceCardsInPyramid(int numberOfRows, List<Card> cardsForPyramid)
+        private void FillPyramid(int numberOfRows, Stack<Card> cardsForPyramid)
         {
 
-            for (int j = 0; j < numberOfRows; j++)
+            for (int i = 0; i < numberOfRows; i++)
             {
-                int rowIndex = j;
-                int cardIndex = 0;
-                for (int i = 0; i <= rowIndex; i++)
+                cardRows[i] = new Card[i + 1];
+                for (int j = 0; j <= i; j++)
                 {
-
-                    ReceiveCard(cardsForPyramid[0], rowIndex, cardIndex);
-                    cardsForPyramid.RemoveAt(0);
-                    cardIndex++;
+                    var card = cardsForPyramid.Pop();
+                    cardRows[i][j] = card;
+                    cardPositionLookUp.Add(card, new Tuple<int, int>(i, j));
                 }
             }
         }
 
-        public Card GiveCard(int rowIndex, int cardIndex)
+        /// <summary>
+        /// Peek a card from the pyramid without drowing it
+        /// </summary>
+        /// <param name="row">1 based index of the pyramid row. 1 is the small top one</param>
+        /// <param name="col">1 based index of the pyramid col. 1 is the most left one in the row</param>
+        /// <returns>The card or null of the card is already drown</returns>
+        public Card? Peek(int row, int col)
         {
-            Card outputCard = CardRows[rowIndex][cardIndex];
-            CardRows[rowIndex][cardIndex] = null;
-            return outputCard;
+            try
+            {
+                return cardRows[row - 1][col - 1];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new InvalidCardPositionException();
+            }
         }
 
-        public void ReceiveCard(Card card, int rowIndex, int cardIndex)
+        public bool CanDrow(Card card)
         {
-            if (CardRows[rowIndex][cardIndex] != null)
-            {
-                throw new SpotNotNullException("Error: A not null card is already in this spot");
-            }
-            else
-            {
-                CardRows[rowIndex][cardIndex] = card;
-            }
+            // get card position
+            var cardPosition = cardPositionLookUp[card];
+            // check if card is in last row
+            if (cardPosition.Item1 == cardRows.Length - 1) return true;
+            // check if in the next row in col and col+1 is empty
+            if (cardRows[cardPosition.Item1 + 1][cardPosition.Item2] == null && cardRows[cardPosition.Item1 + 1][cardPosition.Item2 + 1] == null) return true;
+
+            return false;
+        }
+
+        public void Drow(Card card)
+        {
+            // get card position
+            var cardPosition = cardPositionLookUp[card];
+
+            cardRows[cardPosition.Item1][cardPosition.Item2] = null;
         }
     }
 }
+

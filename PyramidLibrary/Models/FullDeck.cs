@@ -1,21 +1,20 @@
 ﻿namespace PyramidLibrary.Models;
 
-public class Deck : IDeck
+public class FullDeck : IDeck
 {
 
     public IEnumerable<Card> Cards => _cards;
 
     protected List<Card> _cards;
 
-    public Deck()
+    public FullDeck()
     {
         _cards = CreateCards();
-        Shuffle();
     }
 
     private List<Card> CreateCards()
     {
-        int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
         string[] suitsList = { "H", "D", "C", "S" };
 
         List<Card> deck = new();
@@ -29,7 +28,7 @@ public class Deck : IDeck
         return deck;
     }
 
-    private void Shuffle()
+    public void Shuffle()
     {
         Random rng = new Random();
         int n = _cards.Count;
@@ -51,7 +50,7 @@ public class Deck : IDeck
     public IEnumerable<Card> DrowCards(int numberOfCards)
     {
 
-        var output = _cards.Take(numberOfCards);
+        var output = _cards.Take(numberOfCards).ToList();
         _cards.RemoveRange(0, numberOfCards);
         return output;
     }

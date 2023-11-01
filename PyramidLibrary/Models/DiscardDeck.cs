@@ -22,5 +22,10 @@ public class DiscardDeck : IDeck
     {
         throw new NotImplementedException();
     }
+
+    public void Discard(Card card)
+    {
+        throw new NotImplementedException();
+    }
 }
 
