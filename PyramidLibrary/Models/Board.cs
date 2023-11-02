@@ -16,7 +16,7 @@ namespace PyramidLibrary.Models
         public List<PyramidPyramidMove> AvailablePyramidPyramidMoves { get; set; } = new();
         public List<DeckPyramidMove> AvailableDeckPyramidMoves { get; set; } = new();
 
-        private List<Position> AvailableBoardPositions { get; set; } = new();
+        public List<Card> AvailablePyramidCards { get; set; } = new();
 
         public Board(int numberOfRows, IDeck deck)
         {
@@ -45,37 +45,31 @@ namespace PyramidLibrary.Models
                 {
                     if (nextRow[k] == null && nextRow[k + 1] == null && currentRow[k] != null)
                     {
-                        AvailableBoardPositions.Add(new Position(i, k));
+                        AvailablePyramidCards.Add(Pyramid.CardRows[i][k]);
                     }
                 }
             }
-            AvailableBoardPositions.Reverse();
+            AvailablePyramidCards.Reverse();
         }
 
         private void GetAvailablePyramidPyramidMoves()
         {
-            for (int i = 0; i < AvailableBoardPositions.Count; i++)
+            for (int i = 0; i < AvailablePyramidCards.Count; i++)
             {
-                int row1 = AvailableBoardPositions[i].Row;
-                int index1 = AvailableBoardPositions[i].Index;
-                Card card = Pyramid.CardRows[row1][index1];
+                Card card1 = AvailablePyramidCards[i];
 
-                if (card.Number == 10)
+                if (card1.Number == 10)
                 {
-                    AvailableSinglePyramidMoves.Add(new SinglePyramidMove(card, row1, index1));
+                    AvailableSinglePyramidMoves.Add(new SinglePyramidMove(card1));
                     continue;
                 }
-                for (int k = i + 1; k < AvailableBoardPositions.Count; k++)
+                for (int k = i + 1; k < AvailablePyramidCards.Count; k++)
                 {
-                    int row2 = AvailableBoardPositions[k].Row;
-                    int index2 = AvailableBoardPositions[k].Index;
-
-                    Card card1 = Pyramid.CardRows[row1][index1];
-                    Card card2 = Pyramid.CardRows[row2][index2];
+                    Card card2 = AvailablePyramidCards[k];
 
                     if (card1.Number == 10 - card2.Number)
                     {
-                        AvailablePyramidPyramidMoves.Add(new PyramidPyramidMove(card1, card2, row1, index1, row2, index2));
+                        AvailablePyramidPyramidMoves.Add(new PyramidPyramidMove(card1, card2));
                     }
                 }
             }
@@ -83,18 +77,16 @@ namespace PyramidLibrary.Models
 
         private void GetAvailableDeckPyramidMoves()
         {
-            for (int i = 0; i < AvailableBoardPositions.Count; i++)
+            for (int i = 0; i < AvailablePyramidCards.Count; i++)
             {
-                int row = AvailableBoardPositions[i].Row;
-                int index = AvailableBoardPositions[i].Index;
-                Card pyramidCard = Pyramid.CardRows[row][index];
+                Card pyramidCard = AvailablePyramidCards[i];
 
                 for (int k = 0; k < Deck.Cards.Count; k++)
                 {
                     Card deckCard = Deck.Cards[k];
                     if (pyramidCard.Number == 10 - deckCard.Number)
                     {
-                        AvailableDeckPyramidMoves.Add(new DeckPyramidMove(deckCard, pyramidCard, k, row, index));
+                        AvailableDeckPyramidMoves.Add(new DeckPyramidMove(deckCard, pyramidCard, k));
                     }
                 }
             }

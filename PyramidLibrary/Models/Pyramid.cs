@@ -5,6 +5,7 @@ namespace PyramidLibrary.Models
     public class Pyramid
     {
         public List<List<Card?>> CardRows { get; }
+        public Dictionary<Card, (int, int)> CardLookup { get; set; } = new();
 
         public Pyramid(IDeck deck, int numberOfRows)
         {
@@ -47,18 +48,17 @@ namespace PyramidLibrary.Models
                 {
 
                     ReceiveCard(cardsForPyramid[0], rowIndex, cardIndex);
-
+                    CardLookup.Add(cardsForPyramid[0], (rowIndex, cardIndex));
                     cardsForPyramid.RemoveAt(0);
                     cardIndex++;
                 }
             }
         }
 
-        public Card GiveCard(int rowIndex, int cardIndex)
+        public void RemoveCard(Card cardToGive)
         {
-            Card outputCard = CardRows[rowIndex][cardIndex];
-            CardRows[rowIndex][cardIndex] = null;
-            return outputCard;
+            var cohordinates = CardLookup[cardToGive];
+            CardRows[cohordinates.Item1][cohordinates.Item2] = null;
         }
 
         private void ReceiveCard(Card card, int rowIndex, int cardIndex)

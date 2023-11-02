@@ -54,11 +54,12 @@ public class Deck : IDeck
         return output;
     }
 
-    public Card GiveCard(int x)
+    public void GiveCard(int x)
     {
         Card output = Cards[x];
         Cards.RemoveAt(x);
-        return output;
     }
+
+
 }
 

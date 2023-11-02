@@ -5,6 +5,10 @@ int numberOfPyramidRows = 7;
 Player player = new(numberOfPyramidRows);
 
 Presentation.PresentBoard(player.Board);
+Presentation.PresentAvailablePyramidCards(player.Board.AvailablePyramidCards);
+Presentation.PresentAvailableMoves(player.Board.AvailableSinglePyramidMoves,
+                                   player.Board.AvailablePyramidPyramidMoves,
+                                   player.Board.AvailableDeckPyramidMoves);
 //Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
 //Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
 //Console.WriteLine();

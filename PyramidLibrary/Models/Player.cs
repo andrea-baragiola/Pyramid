@@ -14,25 +14,24 @@ public class Player
 
     public void DoDeckPyramidMove(DeckPyramidMove move)
     {
-        Card cardFromDeck = Board.Deck.GiveCard(move.DeckCardIndex);
-        Card cardFromPyramid = Board.Pyramid.GiveCard(move.PyramidCardRow, move.PyramidCardIndex);
-        Board.DiscardDeck.ReceiveCard(cardFromDeck);
-        Board.DiscardDeck.ReceiveCard(cardFromPyramid);
+        Board.Deck.GiveCard(move.DeckCardIndex);
+        Board.Pyramid.RemoveCard(move.PyramidCard);
+        Board.DiscardDeck.ReceiveCard(move.DeckCard);
+        Board.DiscardDeck.ReceiveCard(move.PyramidCard);
     }
 
     public void DoPyramidPyramidMove(PyramidPyramidMove move)
     {
-
-        Card cardFromPyramid1 = Board.Pyramid.GiveCard(move.PyramidCardRow1, move.PyramidCardIndex1);
-        Card cardFromPyramid2 = Board.Pyramid.GiveCard(move.PyramidCardRow2, move.PyramidCardIndex2);
-        Board.DiscardDeck.ReceiveCard(cardFromPyramid1);
-        Board.DiscardDeck.ReceiveCard(cardFromPyramid2);
+        Board.Pyramid.RemoveCard(move.Card1);
+        Board.Pyramid.RemoveCard(move.Card2);
+        Board.DiscardDeck.ReceiveCard(move.Card1);
+        Board.DiscardDeck.ReceiveCard(move.Card2);
     }
 
     public void DoSinglePyramidMove(SinglePyramidMove move)
     {
-        Card cardFromPyramid = Board.Pyramid.GiveCard(move.PyramidCardRow, move.PyramidCardIndex);
-        Board.DiscardDeck.ReceiveCard(cardFromPyramid);
+        Board.Pyramid.RemoveCard(move.Card);
+        Board.DiscardDeck.ReceiveCard(move.Card);
     }
 
     public void CheckWinLoss()

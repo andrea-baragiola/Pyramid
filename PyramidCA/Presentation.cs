@@ -34,63 +34,66 @@ namespace PyramidCA
             Console.WriteLine();
             Console.WriteLine();
         }
-        //public static void PresentAvailableBoardPositions(List<IPosition> availableBoardPositions)
+        public static void PresentAvailablePyramidCards(List<Card> availableCards)
+        {
+            Console.WriteLine("AvailableCards");
+            foreach (Card card in availableCards)
+            {
+                Console.Write(card.Name + ", ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void PresentDescardedCards(List<Card> discardedCards)
+        {
+            Console.WriteLine("DiscardedCards");
+            foreach (Card card in discardedCards)
+            {
+                Console.Write(card.Name + ", ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void PresentAvailableMoves(List<SinglePyramidMove> singlePyramidMove,
+                                                 List<PyramidPyramidMove> pyramidPyramidMoves,
+                                                 List<DeckPyramidMove> deckPyramidMoves)
+        {
+            Console.WriteLine("AvailableSinglePyramidMoves");
+            int moveIndex = 0;
+            foreach (SinglePyramidMove move in singlePyramidMove)
+            {
+                Console.WriteLine($"n.{moveIndex}: {move.Card.Name}");
+                moveIndex++;
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("AvailablePyramidMoves");
+            foreach (PyramidPyramidMove move in pyramidPyramidMoves)
+            {
+                Console.WriteLine($"n.{moveIndex}: {move.Card1.Name} + {move.Card2.Name}");
+                moveIndex++;
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("AvailablePyramidMoves");
+            foreach (DeckPyramidMove move in deckPyramidMoves)
+            {
+                Console.WriteLine($"n.{moveIndex}: {move.PyramidCard.Name} + {move.DeckCard.Name}");
+                moveIndex++;
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+
+        //public static int AskWhichMove(List<Move> moveList)
         //{
-        //    Console.WriteLine("AvailableBoardPositions");
-        //    foreach (IPosition position in availableBoardPositions)
-        //    {
-        //        Console.Write(position.Card.Name + ", ");
-        //    }
-        //    Console.WriteLine();
-        //    Console.WriteLine();
+        //    Console.Write($"Which move do you want to perform? (between n.0 and n.{moveList.Count - 1}) : ");
+        //    return int.Parse(Console.ReadLine());
         //}
-
-        //public static void PresentDescardedDeckPositions(List<IPosition> availableDiscardedPositions)
-        //{
-        //    Console.WriteLine("DiscardedCards");
-        //    foreach (IPosition position in availableDiscardedPositions)
-        //    {
-        //        Console.Write(position.Card.Name + ", ");
-        //    }
-        //    Console.WriteLine();
-        //    Console.WriteLine();
-        //}
-
-    //    public static void PresentAvailableMoves(List<SinglePyramidMove> availableBoardMoves)
-    //    {
-    //        Console.WriteLine("AvailableSinglePyramidMoves");
-    //        int moveIndex = 0;
-    //        foreach (SinglePyramidMove move in availableBoardMoves)
-    //        {
-    //            Card card = 
-    //            if (move..Item2 == null)
-    //            {
-    //                Console.WriteLine($"n.{moveIndex}: {move.Cohordinates.Item1.Card.Name}");
-    //            }
-    //            else
-    //            {
-    //                Console.WriteLine($"n.{moveIndex}: {move.Cohordinates.Item1.Card.Name} + {move.Cohordinates.Item2.Card.Name}");
-    //            }
-    //            moveIndex++;
-    //        }
-    //        Console.WriteLine();
-    //        Console.WriteLine();
-    //    }
-
-    //    public static void PresentAvailableDeckMoves(List<(IPosition, IPosition)> availableDeckMoves)
-    //    {
-    //        Console.WriteLine("AvailableDeckMoves");
-    //        foreach ((IPosition, IPosition) move in availableDeckMoves)
-    //        {
-    //            Console.WriteLine(move.Item1.Card.Name + " + " + move.Item2.Card.Name);
-    //        }
-    //        Console.WriteLine();
-    //    }
-
-    //    public static int AskWhichMove(List<Move> moveList)
-    //    {
-    //        Console.Write($"Which move do you want to perform? (between n.0 and n.{moveList.Count - 1}) : ");
-    //        return int.Parse(Console.ReadLine());
-    //    }
     }
 }
