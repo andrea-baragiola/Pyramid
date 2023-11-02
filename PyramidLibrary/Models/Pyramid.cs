@@ -5,6 +5,7 @@ namespace PyramidLibrary.Models
     public class Pyramid
     {
         public List<List<Card?>> CardRows { get; }
+        private Dictionary<Card, Tuple<int, int>> cardPositionLookUp;
 
         public Pyramid(IDeck deck, int numberOfRows)
         {
@@ -24,6 +25,7 @@ namespace PyramidLibrary.Models
                     cards.Add(null);
                 }
                 CardRows.Add(cards);
+
                 rowIndex++;
             }
         }
@@ -47,6 +49,7 @@ namespace PyramidLibrary.Models
                 {
 
                     ReceiveCard(cardsForPyramid[0], rowIndex, cardIndex);
+                    cardPositionLookUp.Add(cardsForPyramid[0], new Tuple<int, int>(rowIndex, cardIndex));
                     cardsForPyramid.RemoveAt(0);
                     cardIndex++;
                 }
