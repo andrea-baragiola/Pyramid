@@ -48,7 +48,10 @@ public class BoardTests
         board.Pyramid.CardRows[cardOneRow][cardOneIndex].Name.Should().Be("6H");
         board.Pyramid.CardRows[cardTwoRow][cardTwoIndex].Name.Should().Be("4H");
 
-        Console.WriteLine();
 
+        var firstMoveDeckCardIndex = board.AvailableDeckPyramidMoves.First().DeckCardIndex;
+        var lastMoveDeckCardIndex = board.AvailableDeckPyramidMoves.Last().DeckCardIndex;
+        board.Deck.Cards[firstMoveDeckCardIndex].Name.Should().Be("4D");
+        board.Deck.Cards[lastMoveDeckCardIndex].Name.Should().Be("6S");
     }
 }

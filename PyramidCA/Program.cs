@@ -1,10 +1,10 @@
-﻿//using PyramidCA;
-//using PyramidLibrary.Models;
+﻿using PyramidCA;
+using PyramidLibrary.Models;
 
-//int numberOfPyramidRows = 7;
-//Player player = new(numberOfPyramidRows);
+int numberOfPyramidRows = 7;
+Player player = new(numberOfPyramidRows);
 
-//Presentation.PresentBoard(player.Board);
+Presentation.PresentBoard(player.Board);
 //Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
 //Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
 //Console.WriteLine();
