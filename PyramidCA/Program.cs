@@ -6,9 +6,16 @@ Player player = new(numberOfPyramidRows);
 
 Presentation.PresentBoard(player.Board);
 Presentation.PresentAvailablePyramidCards(player.Board.AvailablePyramidCards);
-Presentation.PresentAvailableMoves(player.Board.AvailableSinglePyramidMoves,
-                                   player.Board.AvailablePyramidPyramidMoves,
-                                   player.Board.AvailableDeckPyramidMoves);
+
+List<IMove> moves = player.Board.AvailableSinglePyramidMoves
+    .Cast<IMove>()
+    .Concat(player.Board.AvailablePyramidPyramidMoves.Cast<IMove>())
+    .Concat(player.Board.AvailableDeckPyramidMoves.Cast<IMove>())
+    .ToList();
+
+Presentation.PresentAvailableMoves(moves);
+
+
 //Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
 //Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
 //Console.WriteLine();

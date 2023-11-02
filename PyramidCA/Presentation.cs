@@ -89,6 +89,19 @@ namespace PyramidCA
             Console.WriteLine();
         }
 
+        public static void PresentAvailableMoves(List<IMove> moves)
+        {
+            Console.WriteLine("Available Moves");
+            int moveIndex = 0;
+            foreach (IMove move in moves)
+            {
+                Console.WriteLine($"n.{moveIndex}:  {move.Description}");
+                moveIndex++;
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
 
         //public static int AskWhichMove(List<Move> moveList)
         //{
