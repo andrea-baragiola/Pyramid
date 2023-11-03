@@ -4,18 +4,11 @@ using PyramidLibrary.Models.Moves;
 
 int numberOfPyramidRows = 7;
 Player player = new(numberOfPyramidRows);
-List<IMove> moves;
+
 
 Presentation.PresentBoard(player.Board);
 Presentation.PresentAvailablePyramidCards(player.Board.AvailablePyramidCards);
 Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
-
-
-
-//Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
-//Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
-//Console.WriteLine();
-
 
 while (player.isWinner == false && player.isLooser == false)
 {

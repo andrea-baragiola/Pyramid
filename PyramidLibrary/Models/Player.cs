@@ -39,7 +39,7 @@ public class Player
 
     public void CheckWinLoss()
     {
-        if (Board.AvailableDeckPyramidMoves.Count == 0 && Board.AvailablePyramidPyramidMoves.Count == 0)
+        if (Board.AvailableMoves.Count == 0)
         {
             if (Board.Pyramid.CardRows[0][0] == null)
             {

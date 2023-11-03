@@ -9,17 +9,16 @@ namespace PyramidLibrary.Models
         public Pyramid Pyramid { get; }
         public IDeck Deck { get; }
         public DiscardDeck DiscardDeck { get; }
-        public List<IMove> AvailableMoves => AvailableSinglePyramidMoves
+        public List<Card> AvailablePyramidCards { get; set; } = new();
+        public List<IMove> AvailableMoves => availableSinglePyramidMoves
                 .Cast<IMove>()
-                .Concat(AvailablePyramidPyramidMoves.Cast<IMove>())
-                .Concat(AvailableDeckPyramidMoves.Cast<IMove>())
+                .Concat(availablePyramidPyramidMoves.Cast<IMove>())
+                .Concat(availableDeckPyramidMoves.Cast<IMove>())
                 .ToList();
 
-        public List<SinglePyramidMove> AvailableSinglePyramidMoves { get; set; } = new();
-        public List<PyramidPyramidMove> AvailablePyramidPyramidMoves { get; set; } = new();
-        public List<DeckPyramidMove> AvailableDeckPyramidMoves { get; set; } = new();
-
-        public List<Card> AvailablePyramidCards { get; set; } = new();
+        private List<SinglePyramidMove> availableSinglePyramidMoves = new();
+        private List<PyramidPyramidMove> availablePyramidPyramidMoves = new();
+        private List<DeckPyramidMove> availableDeckPyramidMoves = new();
 
         public Board(int numberOfRows, IDeck deck)
         {
@@ -57,15 +56,15 @@ namespace PyramidLibrary.Models
 
         private void GetAvailablePyramidPyramidMoves()
         {
-            AvailablePyramidPyramidMoves.Clear();
-            AvailableSinglePyramidMoves.Clear();
+            availablePyramidPyramidMoves.Clear();
+            availableSinglePyramidMoves.Clear();
             for (int i = 0; i < AvailablePyramidCards.Count; i++)
             {
                 Card card1 = AvailablePyramidCards[i];
 
                 if (card1.Number == 10)
                 {
-                    AvailableSinglePyramidMoves.Add(new SinglePyramidMove(card1));
+                    availableSinglePyramidMoves.Add(new SinglePyramidMove(card1));
                     continue;
                 }
                 for (int k = i + 1; k < AvailablePyramidCards.Count; k++)
@@ -74,7 +73,7 @@ namespace PyramidLibrary.Models
 
                     if (card1.Number == 10 - card2.Number)
                     {
-                        AvailablePyramidPyramidMoves.Add(new PyramidPyramidMove(card1, card2));
+                        availablePyramidPyramidMoves.Add(new PyramidPyramidMove(card1, card2));
                     }
                 }
             }
@@ -82,7 +81,7 @@ namespace PyramidLibrary.Models
 
         private void GetAvailableDeckPyramidMoves()
         {
-            AvailableDeckPyramidMoves.Clear();
+            availableDeckPyramidMoves.Clear();
             for (int i = 0; i < AvailablePyramidCards.Count; i++)
             {
                 Card pyramidCard = AvailablePyramidCards[i];
@@ -92,7 +91,7 @@ namespace PyramidLibrary.Models
                     Card deckCard = Deck.Cards[k];
                     if (pyramidCard.Number == 10 - deckCard.Number)
                     {
-                        AvailableDeckPyramidMoves.Add(new DeckPyramidMove(deckCard, pyramidCard, k));
+                        availableDeckPyramidMoves.Add(new DeckPyramidMove(deckCard, pyramidCard, k));
                     }
                 }
             }
