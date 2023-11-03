@@ -1,4 +1,3 @@
-using PyramidLibrary.Models;
 using FluentAssertions;
 using PyramidLibrary.Models.Decks;
 

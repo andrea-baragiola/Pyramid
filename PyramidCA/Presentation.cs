@@ -104,10 +104,10 @@ namespace PyramidCA
         }
 
 
-        //public static int AskWhichMove(List<Move> moveList)
-        //{
-        //    Console.Write($"Which move do you want to perform? (between n.0 and n.{moveList.Count - 1}) : ");
-        //    return int.Parse(Console.ReadLine());
-        //}
+        public static int AskWhichMove(List<IMove> moveList)
+        {
+            Console.Write($"Which move do you want to perform? (between n.0 and n.{moveList.Count - 1}) : ");
+            return int.Parse(Console.ReadLine());
+        }
     }
 }

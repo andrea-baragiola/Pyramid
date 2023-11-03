@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Models.Moves;
 
@@ -13,6 +9,11 @@ namespace PyramidLibrary.Models
         public Pyramid Pyramid { get; }
         public IDeck Deck { get; }
         public DiscardDeck DiscardDeck { get; }
+        public List<IMove> AvailableMoves => AvailableSinglePyramidMoves
+                .Cast<IMove>()
+                .Concat(AvailablePyramidPyramidMoves.Cast<IMove>())
+                .Concat(AvailableDeckPyramidMoves.Cast<IMove>())
+                .ToList();
 
         public List<SinglePyramidMove> AvailableSinglePyramidMoves { get; set; } = new();
         public List<PyramidPyramidMove> AvailablePyramidPyramidMoves { get; set; } = new();
@@ -30,14 +31,14 @@ namespace PyramidLibrary.Models
 
         public void GetAllAvailableMoves()
         {
-            GetAvailableBoardPositions();
+            GetAvailableCards();
             GetAvailableDeckPyramidMoves();
             GetAvailablePyramidPyramidMoves();
         }
 
-        private void GetAvailableBoardPositions()
+        private void GetAvailableCards()
         {
-
+            AvailablePyramidCards.Clear();
             for (int i = 0; i < Pyramid.CardRows.Count - 1; i++)
             {
                 List<Card> currentRow = Pyramid.CardRows[i];
@@ -56,6 +57,8 @@ namespace PyramidLibrary.Models
 
         private void GetAvailablePyramidPyramidMoves()
         {
+            AvailablePyramidPyramidMoves.Clear();
+            AvailableSinglePyramidMoves.Clear();
             for (int i = 0; i < AvailablePyramidCards.Count; i++)
             {
                 Card card1 = AvailablePyramidCards[i];
@@ -79,6 +82,7 @@ namespace PyramidLibrary.Models
 
         private void GetAvailableDeckPyramidMoves()
         {
+            AvailableDeckPyramidMoves.Clear();
             for (int i = 0; i < AvailablePyramidCards.Count; i++)
             {
                 Card pyramidCard = AvailablePyramidCards[i];

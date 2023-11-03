@@ -4,17 +4,12 @@ using PyramidLibrary.Models.Moves;
 
 int numberOfPyramidRows = 7;
 Player player = new(numberOfPyramidRows);
+List<IMove> moves;
 
 Presentation.PresentBoard(player.Board);
 Presentation.PresentAvailablePyramidCards(player.Board.AvailablePyramidCards);
+Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
 
-List<IMove> moves = player.Board.AvailableSinglePyramidMoves
-    .Cast<IMove>()
-    .Concat(player.Board.AvailablePyramidPyramidMoves.Cast<IMove>())
-    .Concat(player.Board.AvailableDeckPyramidMoves.Cast<IMove>())
-    .ToList();
-
-Presentation.PresentAvailableMoves(moves);
 
 
 //Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
@@ -22,36 +17,47 @@ Presentation.PresentAvailableMoves(moves);
 //Console.WriteLine();
 
 
-//while (player.isWinner == false && player.isLooser == false)
-//{
-//    player.ExecuteMove(Presentation.AskWhichMove(player.Board.AvailableMoves));
-//    //player.ExecuteMove(0);
-//    player.Board.GetAvailableBoardPositions();
-//    player.Board.GetAvailableMoves();
+while (player.isWinner == false && player.isLooser == false)
+{
+    int choice = Presentation.AskWhichMove(player.Board.AvailableMoves);
 
-//    Presentation.PresentBoard(player.Board);
-//    Presentation.PresentAvailableBoardPositions(player.Board.AvailableBoardPositions);
-//    Presentation.PresentDescardedDeckPositions(player.Board.DiscardedCardsDeck.Positions);
-//    Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
+    if (player.Board.AvailableMoves[choice] is DeckPyramidMove deckPyramidMove)
+    {
+        player.DoDeckPyramidMove(deckPyramidMove);
+    }
+    else if (player.Board.AvailableMoves[choice] is PyramidPyramidMove pyramidPyramidMove)
+    {
+        player.DoPyramidPyramidMove(pyramidPyramidMove);
+    }
+    else if (player.Board.AvailableMoves[choice] is SinglePyramidMove singlePyramidMove)
+    {
+        player.DoSinglePyramidMove(singlePyramidMove);
+    }
 
-//    player.CheckWinLoss();
-//}
 
-//if (player.isWinner)
-//{
-//    Console.WriteLine("  ||=============||");
-//    Console.WriteLine("  ||   YOU WON   ||");
-//    Console.WriteLine("  ||=============||");
-//    Console.WriteLine();
-//    Console.WriteLine();
-//}
-//else
-//{
-//    Console.WriteLine("  ||==============||");
-//    Console.WriteLine("  ||   YOU LOST   ||");
-//    Console.WriteLine("  ||==============||");
-//    Console.WriteLine();
-//    Console.WriteLine();
-//}
+    player.Board.GetAllAvailableMoves();
+    Presentation.PresentBoard(player.Board);
+    Presentation.PresentAvailablePyramidCards(player.Board.AvailablePyramidCards);
+    Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
+
+    player.CheckWinLoss();
+}
+
+if (player.isWinner)
+{
+    Console.WriteLine("  ||=============||");
+    Console.WriteLine("  ||   YOU WON   ||");
+    Console.WriteLine("  ||=============||");
+    Console.WriteLine();
+    Console.WriteLine();
+}
+else
+{
+    Console.WriteLine("  ||==============||");
+    Console.WriteLine("  ||   YOU LOST   ||");
+    Console.WriteLine("  ||==============||");
+    Console.WriteLine();
+    Console.WriteLine();
+}
 
 
