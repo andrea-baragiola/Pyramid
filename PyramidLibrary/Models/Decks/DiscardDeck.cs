@@ -1,4 +1,4 @@
-﻿namespace PyramidLibrary.Models;
+﻿namespace PyramidLibrary.Models.Decks;
 
 public class DiscardDeck : IDeck
 {
@@ -23,7 +23,7 @@ public class DiscardDeck : IDeck
         throw new NotImplementedException();
     }
 
-    public void GiveCard(int x)
+    public void RemoveCard(int x)
     {
         throw new NotImplementedException();
     }

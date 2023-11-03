@@ -1,4 +1,7 @@
-﻿namespace PyramidLibrary.Models;
+﻿using PyramidLibrary.Models.Decks;
+using PyramidLibrary.Models.Moves;
+
+namespace PyramidLibrary.Models;
 
 public class Player
 {
@@ -14,7 +17,7 @@ public class Player
 
     public void DoDeckPyramidMove(DeckPyramidMove move)
     {
-        Board.Deck.GiveCard(move.DeckCardIndex);
+        Board.Deck.RemoveCard(move.DeckCardIndex);
         Board.Pyramid.RemoveCard(move.PyramidCard);
         Board.DiscardDeck.ReceiveCard(move.DeckCard);
         Board.DiscardDeck.ReceiveCard(move.PyramidCard);

@@ -1,4 +1,4 @@
-﻿namespace PyramidLibrary.Models
+﻿namespace PyramidLibrary.Models.Moves
 {
     public interface IMove
     {

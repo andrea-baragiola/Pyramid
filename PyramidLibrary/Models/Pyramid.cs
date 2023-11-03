@@ -1,4 +1,5 @@
 ﻿using PyramidLibrary.CustomExceptions;
+using PyramidLibrary.Models.Decks;
 
 namespace PyramidLibrary.Models
 {

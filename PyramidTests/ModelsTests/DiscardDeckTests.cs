@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using PyramidLibrary.Models;
+using PyramidLibrary.Models.Decks;
 
 namespace PyramidTests.ModelsTests;
 

@@ -1,4 +1,4 @@
-﻿namespace PyramidLibrary.Models;
+﻿namespace PyramidLibrary.Models.Decks;
 
 public class Deck : IDeck
 {
@@ -54,7 +54,7 @@ public class Deck : IDeck
         return output;
     }
 
-    public void GiveCard(int x)
+    public void RemoveCard(int x)
     {
         Card output = Cards[x];
         Cards.RemoveAt(x);

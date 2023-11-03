@@ -1,4 +1,5 @@
 ﻿using PyramidLibrary.Models;
+using PyramidLibrary.Models.Moves;
 
 namespace PyramidCA
 {

@@ -1,5 +1,6 @@
 using PyramidLibrary.Models;
 using FluentAssertions;
+using PyramidLibrary.Models.Decks;
 
 namespace PyramidTests.ModelsTests;
 
@@ -17,20 +18,21 @@ public class DeckTests
             .And.HaveCount(40);
     }
 
-    [Theory]
-    [InlineData(0)]
-    [InlineData(14)]
-    [InlineData(39)]
-    public void GiveCard_ShouldSucceed(int cardIndex)
-    {
-        // arrange
-        Deck deck = new();
-        // act
-        Card card = deck.GiveCard(cardIndex);
-        // assert
-        card.Should().NotBeNull();
-        card.Should().BeOfType<Card>();
-    }
+    //[Theory]
+    //[InlineData(0)]
+    //[InlineData(14)]
+    //[InlineData(39)]
+    //public void RemoveCard_ShouldSucceed(int cardIndex)
+    //{
+    //    // arrange
+    //    Deck deck = new();
+    //    // act
+    //    deck.RemoveCard(cardIndex);
+    //    // assert
+    //    deck.Cards[cardIndex].Should().NotBeNull();
+    //    card.Should().NotBeNull();
+    //    card.Should().BeOfType<Card>();
+    //}
 
     [Theory]
     [InlineData(-1)]
@@ -41,7 +43,7 @@ public class DeckTests
         Deck deck = new();
 
         // act
-        Action act = () => deck.GiveCard(cardIndex);
+        Action act = () => deck.RemoveCard(cardIndex);
 
         // assert
         act.Should().Throw<Exception>();

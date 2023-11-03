@@ -1,4 +1,4 @@
-﻿namespace PyramidLibrary.Models;
+﻿namespace PyramidLibrary.Models.Decks;
 
 public class UnshuffledDeck : Deck
 {
@@ -18,7 +18,7 @@ public class UnshuffledDeck : Deck
             }
         }
         Cards = cardList;
-    }   
-    
+    }
+
 }
 

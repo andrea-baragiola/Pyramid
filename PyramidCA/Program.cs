@@ -1,5 +1,6 @@
 ﻿using PyramidCA;
 using PyramidLibrary.Models;
+using PyramidLibrary.Models.Moves;
 
 int numberOfPyramidRows = 7;
 Player player = new(numberOfPyramidRows);

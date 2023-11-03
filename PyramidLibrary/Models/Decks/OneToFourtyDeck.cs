@@ -1,4 +1,4 @@
-﻿namespace PyramidLibrary.Models;
+﻿namespace PyramidLibrary.Models.Decks;
 
 public class OneToFourtyDeck : Deck
 {
@@ -12,7 +12,7 @@ public class OneToFourtyDeck : Deck
             cardList.Add(new Card(number, "A"));
         }
         Cards = cardList;
-    }   
-    
+    }
+
 }
 
