@@ -3,15 +3,16 @@
 public class Deck : IDeck
 {
 
-    public List<Card> Cards { get; protected set; }
+    public List<Card> Cards { get; protected set; } = new();
+    public Dictionary<Card, int> CardLookup { get; set; } = new();
 
     public Deck()
     {
-        Cards = CreateCards();
+        CreateCards();
         Shuffle();
     }
 
-    private List<Card> CreateCards()
+    private void CreateCards()
     {
         int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         string[] suitsList = { "H", "D", "C", "S" };
@@ -21,12 +22,11 @@ public class Deck : IDeck
         {
             foreach (string suit in suitsList)
             {
-                deck.Add(new Card(number, suit));
+                Card newCard = new Card(number, suit);
+                ReceiveCard(newCard);
             }
         }
-        return deck;
     }
-
     private void Shuffle()
     {
         Random rng = new Random();
@@ -41,23 +41,20 @@ public class Deck : IDeck
         }
     }
 
-    public Card DrowCard()
+    public void ReceiveCard(Card card)
     {
-        return DrowCards(1).Single();
+        Cards.Add(card);
+        CardLookup.Add(card, Cards.Count);
+    }
+    public void RemoveCard(Card card)
+    {
+        Cards.RemoveAt(CardLookup[card]);
+        CardLookup.Remove(card);
     }
 
-    public IEnumerable<Card> DrowCards(int numberOfCards)
+    public List<Card> GiveCards(int numberOfCards)
     {
 
-        var output = Cards.Take(numberOfCards).ToList();
-        Cards.RemoveRange(0, numberOfCards);
-        return output;
-    }
-
-    public void RemoveCard(int x)
-    {
-        Card output = Cards[x];
-        Cards.RemoveAt(x);
     }
 
 

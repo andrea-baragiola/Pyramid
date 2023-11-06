@@ -10,9 +10,9 @@ public class Player
     public bool isLooser { get; private set; } = false;
 
 
-    public Player(int numberOfPyramidRows)
+    public Player(Board board)
     {
-        Board = new(numberOfPyramidRows, new Deck());
+        Board = board;
     }
 
     public void DoDeckPyramidMove(DeckPyramidMove move)

@@ -8,7 +8,7 @@ namespace PyramidLibrary.Models
     {
         public Pyramid Pyramid { get; }
         public IDeck Deck { get; }
-        public DiscardDeck DiscardDeck { get; }
+        public IDeck DiscardDeck { get; }
         public List<Card> AvailablePyramidCards { get; set; } = new();
         public List<IMove> AvailableMoves => availableSinglePyramidMoves
                 .Cast<IMove>()
@@ -32,7 +32,7 @@ namespace PyramidLibrary.Models
         {
             GetAvailableCards();
             GetAvailableDeckPyramidMoves();
-            GetAvailablePyramidPyramidMoves();
+            GetAvailablePyramidMoves();
         }
 
         private void GetAvailableCards()
@@ -54,7 +54,7 @@ namespace PyramidLibrary.Models
             AvailablePyramidCards.Reverse();
         }
 
-        private void GetAvailablePyramidPyramidMoves()
+        private void GetAvailablePyramidMoves()
         {
             availablePyramidPyramidMoves.Clear();
             availableSinglePyramidMoves.Clear();

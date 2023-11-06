@@ -1,9 +1,11 @@
 ﻿using PyramidCA;
 using PyramidLibrary.Models;
+using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Models.Moves;
 
 int numberOfPyramidRows = 7;
-Player player = new(numberOfPyramidRows);
+Board board = new(numberOfPyramidRows, new Deck());
+Player player = new(board);
 
 
 Presentation.PresentBoard(player.Board);

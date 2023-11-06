@@ -11,6 +11,4 @@ public class Card
         Suit = suit;
         Name = number.ToString() + suit;
     }
-
-
 }

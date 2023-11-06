@@ -3,10 +3,8 @@
     public interface IDeck
     {
         List<Card> Cards { get; }
-
-        Card DrowCard();
-        void RemoveCard(int x);
-
-        IEnumerable<Card> DrowCards(int numberOfCards);
+        Dictionary<Card, int> CardLookup { get; set; }
+        void RemoveCard(Card card);
+        void ReceiveCard(Card card);
     }
 }
