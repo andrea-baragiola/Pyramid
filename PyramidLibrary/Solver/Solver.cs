@@ -7,12 +7,12 @@ using PyramidLibrary.Models;
 
 namespace PyramidLibrary.Solver
 {
-    public class Solver
+    public class Solver : Player
     {
         public Tree Tree { get; set; }
-        public Solver(Board rootBoard)
+        public Solver(Board board) : base(board)
         {
-            Tree = new(rootBoard);
+
         }
 
         public void Solve()

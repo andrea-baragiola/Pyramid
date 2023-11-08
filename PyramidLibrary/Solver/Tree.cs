@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PyramidLibrary.Models;
+using PyramidLibrary.Models.Moves;
 
 namespace PyramidLibrary.Solver
 {
