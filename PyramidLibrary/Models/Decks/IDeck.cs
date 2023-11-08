@@ -3,7 +3,7 @@
     public interface IDeck
     {
         List<Card> Cards { get; }
-        Dictionary<Card, int> CardLookup { get; set; }
+        //Dictionary<Card, int> CardLookup { get; set; }
         void RemoveCard(Card card);
         void ReceiveCard(Card card);
         List<Card> GiveCards(int numberOfCards);

@@ -4,15 +4,19 @@ public class Deck : IDeck
 {
 
     public List<Card> Cards { get; protected set; } = new();
-    public Dictionary<Card, int> CardLookup { get; set; } = new();
+    //public Dictionary<Card, int> CardLookup { get; set; } = new();
 
     public Deck()
     {
-        CreateCards();
-        Shuffle();
+
+        List<Card> cards = Shuffle(CreateCards());
+        foreach (Card card in cards)
+        {
+            ReceiveCard(card);
+        }
     }
 
-    private void CreateCards()
+    private List<Card> CreateCards()
     {
         int[] numberList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         string[] suitsList = { "H", "D", "C", "S" };
@@ -23,40 +27,44 @@ public class Deck : IDeck
             foreach (string suit in suitsList)
             {
                 Card newCard = new Card(number, suit);
-                ReceiveCard(newCard);
+                deck.Add(newCard);
+
             }
         }
+        return deck;
     }
-    private void Shuffle()
+    private List<Card> Shuffle(List<Card> cards)
     {
         Random rng = new Random();
-        int n = Cards.Count;
+        int n = cards.Count;
         while (n > 1)
         {
             n--;
             int k = rng.Next(n + 1);
-            Card value = Cards[k];
-            Cards[k] = Cards[n];
-            Cards[n] = value;
+            Card value = cards[k];
+            cards[k] = cards[n];
+            cards[n] = value;
         }
+        return cards;
     }
 
     public void ReceiveCard(Card card)
     {
         Cards.Add(card);
-        CardLookup.Add(card, Cards.Count);
+
     }
     public void RemoveCard(Card card)
     {
-        Cards.RemoveAt(CardLookup[card]);
-        CardLookup.Remove(card);
+        Cards.Remove(card);
     }
 
     public List<Card> GiveCards(int numberOfCards)
     {
-            var output = Cards.Take(numberOfCards).ToList();
-            Cards.RemoveRange(0, numberOfCards);
-            return output;
+        var output = Cards.TakeLast(numberOfCards).ToList();
+
+        Cards.RemoveRange(Cards.Count - 1 - numberOfCards, numberOfCards);
+
+        return output;
     }
 
 

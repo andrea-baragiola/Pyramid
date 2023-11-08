@@ -4,7 +4,8 @@ using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Models.Moves;
 
 int numberOfPyramidRows = 7;
-Board board = new(numberOfPyramidRows, new Deck());
+Deck initialDeck = new();
+Board board = new(numberOfPyramidRows, initialDeck);
 Player player = new(board);
 
 
