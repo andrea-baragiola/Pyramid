@@ -54,7 +54,9 @@ public class Deck : IDeck
 
     public List<Card> GiveCards(int numberOfCards)
     {
-
+            var output = Cards.Take(numberOfCards).ToList();
+            Cards.RemoveRange(0, numberOfCards);
+            return output;
     }
 
 

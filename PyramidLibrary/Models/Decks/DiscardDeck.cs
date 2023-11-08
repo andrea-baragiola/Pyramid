@@ -1,10 +1,10 @@
 ﻿namespace PyramidLibrary.Models.Decks;
 
-public class DiscardDeck : Deck,IDeck
+public class DiscardDeck : Deck, IDeck
 {
     public DiscardDeck()
     {
-        
+
     }
 }
 

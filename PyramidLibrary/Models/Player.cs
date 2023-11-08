@@ -17,7 +17,7 @@ public class Player
 
     public void DoDeckPyramidMove(DeckPyramidMove move)
     {
-        Board.Deck.RemoveCard(move.DeckCardIndex);
+        Board.Deck.RemoveCard(move.DeckCard);
         Board.Pyramid.RemoveCard(move.PyramidCard);
         Board.DiscardDeck.ReceiveCard(move.DeckCard);
         Board.DiscardDeck.ReceiveCard(move.PyramidCard);

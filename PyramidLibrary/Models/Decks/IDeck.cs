@@ -6,5 +6,6 @@
         Dictionary<Card, int> CardLookup { get; set; }
         void RemoveCard(Card card);
         void ReceiveCard(Card card);
+        List<Card> GiveCards(int numberOfCards);
     }
 }

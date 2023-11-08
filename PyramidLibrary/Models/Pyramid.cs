@@ -34,13 +34,7 @@ namespace PyramidLibrary.Models
         private void FillPyramid(IDeck deck, int numberOfRows)
         {
             int numberOfCardsToDrow = numberOfRows * (numberOfRows + 1) / 2;
-            List<Card> cardsForPyramid = new();
-            for (int i = 0; i < numberOfCardsToDrow; i++)
-            {
-                deck.
-            }
-
-            List<Card> cardsForPyramid = deck.DrowCards(numberOfCardsToDrow).ToList();
+            List<Card> cardsForPyramid = deck.GiveCards(numberOfCardsToDrow).ToList();
             PlaceCardsInPyramid(numberOfRows, cardsForPyramid);
         }
 

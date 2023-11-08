@@ -10,15 +10,12 @@ namespace PyramidLibrary.Solver
 {
     public class TreeNode
     {
-        public Board Board { get; set; }
         public IMove Move { get; set; }
         public List<TreeNode> Children { get; } = new List<TreeNode>();
 
-        public TreeNode(Board board)
+        public TreeNode(IMove move)
         {
-            Board = board;
-            Move = Board.AvailableMoves[0];
-            Board.AvailableMoves.RemoveAt(0);
+            Move = move;
         }
 
         public void AddChild(TreeNode childNode)

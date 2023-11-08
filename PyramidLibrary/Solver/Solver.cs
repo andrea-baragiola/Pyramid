@@ -17,7 +17,7 @@ namespace PyramidLibrary.Solver
 
         public void Solve()
         {
-            Tree.Ad
+            //Tree.Ad
         }
     }
 }

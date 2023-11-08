@@ -9,11 +9,11 @@ namespace PyramidLibrary.Solver
 {
     public class Tree
     {
-        public TreeNode RootBoard { get; set; }
+        public TreeNode RootMove { get; set; }
 
-        public Tree(Board rootBoard)
+        public Tree(IMove rootMove)
         {
-            RootBoard = new TreeNode(rootBoard);
+            RootMove = new TreeNode(rootMove);
         }
     }
 }
