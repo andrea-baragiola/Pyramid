@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using PyramidLibrary.Models.Decks;
+﻿using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Models.Moves;
 
 namespace PyramidLibrary.Models

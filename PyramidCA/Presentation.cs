@@ -35,10 +35,10 @@ namespace PyramidCA
             Console.WriteLine();
             Console.WriteLine();
         }
-        public static void PresentAvailablePyramidCards(List<Card> availableCards)
+        public static void PresentCardList(List<Card> cardList, string cardListName)
         {
-            Console.WriteLine("AvailableCards");
-            foreach (Card card in availableCards)
+            Console.WriteLine(cardListName);
+            foreach (Card card in cardList)
             {
                 Console.Write(card.Name + ", ");
             }
@@ -46,16 +46,6 @@ namespace PyramidCA
             Console.WriteLine();
         }
 
-        public static void PresentDescardedCards(List<Card> discardedCards)
-        {
-            Console.WriteLine("DiscardedCards");
-            foreach (Card card in discardedCards)
-            {
-                Console.Write(card.Name + ", ");
-            }
-            Console.WriteLine();
-            Console.WriteLine();
-        }
 
         public static void PresentAvailableMoves(List<SinglePyramidMove> singlePyramidMove,
                                                  List<PyramidPyramidMove> pyramidPyramidMoves,

@@ -4,7 +4,7 @@ public class DiscardDeck : Deck, IDeck
 {
     public DiscardDeck()
     {
-
+        Cards = new();
     }
 }
 

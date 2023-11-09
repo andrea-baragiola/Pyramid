@@ -1,13 +1,13 @@
-﻿using PyramidLibrary.Models.Decks;
-using PyramidLibrary.Models.Moves;
+﻿using PyramidLibrary.Models.Moves;
 
 namespace PyramidLibrary.Models;
 
 public class Player
 {
-    public Board Board { get; }
-    public bool isWinner { get; private set; } = false;
-    public bool isLooser { get; private set; } = false;
+    public Board Board { get; set; }
+    public bool isWinner { get; set; } = false;
+    public bool isLooser { get; set; } = false;
+    public bool isGameEnded => isWinner || isLooser;
 
 
     public Player(Board board)
@@ -15,7 +15,23 @@ public class Player
         Board = board;
     }
 
-    public void DoDeckPyramidMove(DeckPyramidMove move)
+    public void DoMove(IMove move)
+    {
+        if (move is DeckPyramidMove deckPyramidMove)
+        {
+            DoDeckPyramidMove(deckPyramidMove);
+        }
+        else if (move is PyramidPyramidMove pyramidPyramidMove)
+        {
+            DoPyramidPyramidMove(pyramidPyramidMove);
+        }
+        else if (move is SinglePyramidMove singlePyramidMove)
+        {
+            DoSinglePyramidMove(singlePyramidMove);
+        }
+    }
+
+    private void DoDeckPyramidMove(DeckPyramidMove move)
     {
         Board.Deck.RemoveCard(move.DeckCard);
         Board.Pyramid.RemoveCard(move.PyramidCard);
@@ -23,7 +39,7 @@ public class Player
         Board.DiscardDeck.ReceiveCard(move.PyramidCard);
     }
 
-    public void DoPyramidPyramidMove(PyramidPyramidMove move)
+    private void DoPyramidPyramidMove(PyramidPyramidMove move)
     {
         Board.Pyramid.RemoveCard(move.Card1);
         Board.Pyramid.RemoveCard(move.Card2);
@@ -31,7 +47,7 @@ public class Player
         Board.DiscardDeck.ReceiveCard(move.Card2);
     }
 
-    public void DoSinglePyramidMove(SinglePyramidMove move)
+    private void DoSinglePyramidMove(SinglePyramidMove move)
     {
         Board.Pyramid.RemoveCard(move.Card);
         Board.DiscardDeck.ReceiveCard(move.Card);

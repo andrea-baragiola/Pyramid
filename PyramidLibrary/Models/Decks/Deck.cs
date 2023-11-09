@@ -3,13 +3,14 @@
 public class Deck : IDeck
 {
 
-    public List<Card> Cards { get; protected set; } = new();
+    public List<Card> Cards { get; protected set; }
     //public Dictionary<Card, int> CardLookup { get; set; } = new();
 
     public Deck()
     {
 
         List<Card> cards = Shuffle(CreateCards());
+        Cards = new();
         foreach (Card card in cards)
         {
             ReceiveCard(card);
@@ -62,7 +63,7 @@ public class Deck : IDeck
     {
         var output = Cards.TakeLast(numberOfCards).ToList();
 
-        Cards.RemoveRange(Cards.Count - 1 - numberOfCards, numberOfCards);
+        Cards.RemoveRange(Cards.Count - numberOfCards, numberOfCards);
 
         return output;
     }
