@@ -1,93 +1,63 @@
-﻿namespace PyramidLibrary.Models;
+﻿using PyramidLibrary.Models.Moves;
+
+namespace PyramidLibrary.Models;
 
 public class Player
 {
     public Board Board { get; set; }
     public bool isWinner { get; set; } = false;
     public bool isLooser { get; set; } = false;
+    public bool isGameEnded => isWinner || isLooser;
 
 
-    public Player(int numberOfPyramidRows)
+    public Player(Board board)
     {
-        Board = new(numberOfPyramidRows);
+        Board = board;
     }
 
-
-    public void ExecuteMove(int moveIndex)
+    public void DoMove(IMove move)
     {
-        Move move = Board.AvailableMoves[moveIndex];
-        if (move.Cohordinates.Item1.Id.Item1 == 999)
+        if (move is DeckPyramidMove deckPyramidMove)
         {
-            ExecuteDeckMove(move);
+            DoDeckPyramidMove(deckPyramidMove);
         }
-        else
+        else if (move is PyramidPyramidMove pyramidPyramidMove)
         {
-            ExecuteBoardMove(move);
+            DoPyramidPyramidMove(pyramidPyramidMove);
         }
-    }
-
-    private void ExecuteBoardMove(Move move)
-    {
-        List<IPosition> boardPositionsToRemove = new() { move.Cohordinates.Item1, move.Cohordinates.Item2 };
-        foreach (IPosition boardPositionToRemove in boardPositionsToRemove)
+        else if (move is SinglePyramidMove singlePyramidMove)
         {
-            if (boardPositionToRemove == null)
-            {
-                continue;
-            }
-            else
-            {
-                AddCardToDescardDeck(boardPositionToRemove.Card);
-                DeleteCardFromBoard(boardPositionToRemove);
-            }
+            DoSinglePyramidMove(singlePyramidMove);
         }
     }
 
-    private void ExecuteDeckMove(Move move)
+    private void DoDeckPyramidMove(DeckPyramidMove move)
     {
-        IPosition deckPosition = move.Cohordinates.Item1;
-        AddCardToDescardDeck(deckPosition.Card);
-        DeletePositionFromInHandDeck(deckPosition);
-
-        IPosition boardPositionToRemove = move.Cohordinates.Item2;
-        AddCardToDescardDeck(boardPositionToRemove.Card);
-        DeleteCardFromBoard(boardPositionToRemove);
+        Board.Deck.RemoveCard(move.DeckCard);
+        Board.Pyramid.RemoveCard(move.PyramidCard);
+        Board.DiscardDeck.ReceiveCard(move.DeckCard);
+        Board.DiscardDeck.ReceiveCard(move.PyramidCard);
     }
 
-    private void DeletePositionFromInHandDeck(IPosition deckPosition)
+    private void DoPyramidPyramidMove(PyramidPyramidMove move)
     {
-        for (int i = 0; i < Board.InHandDeck.Positions.Count; i++)
-        {
-            if (Board.InHandDeck.Positions[i] == deckPosition)
-            {
-                Board.InHandDeck.Positions.RemoveAt(i); break;
-            }
-        }
+        Board.Pyramid.RemoveCard(move.Card1);
+        Board.Pyramid.RemoveCard(move.Card2);
+        Board.DiscardDeck.ReceiveCard(move.Card1);
+        Board.DiscardDeck.ReceiveCard(move.Card2);
     }
 
-    private void DeleteCardFromBoard(IPosition positionToMove)
+    private void DoSinglePyramidMove(SinglePyramidMove move)
     {
-        int row = positionToMove.Id.Item1;
-        foreach (IPosition boardposition in Board.PyramidOfCards[row])
-        {
-            if (boardposition == positionToMove)
-            {
-                boardposition.Card = null; break;
-            }
-        }
-    }
-
-    private void AddCardToDescardDeck(Card card)
-    {
-        int currentNumberOfCards = Board.DiscardedCardsDeck.Positions.Count;
-        Board.DiscardedCardsDeck.Positions.Add(new DeckPosition(currentNumberOfCards, card));
+        Board.Pyramid.RemoveCard(move.Card);
+        Board.DiscardDeck.ReceiveCard(move.Card);
     }
 
     public void CheckWinLoss()
     {
         if (Board.AvailableMoves.Count == 0)
         {
-            if (Board.AvailableBoardPositions.Count == 0)
+            if (Board.Pyramid.CardRows[0][0] == null)
             {
                 isWinner = true;
             }

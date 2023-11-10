@@ -1,155 +1,100 @@
-﻿namespace PyramidLibrary.Models;
+﻿using PyramidLibrary.Models.Decks;
+using PyramidLibrary.Models.Moves;
 
-public class Board
+namespace PyramidLibrary.Models
 {
-    public IDeck InHandDeck { get; set; }
-    public IDeck DiscardedCardsDeck { get; set; }
-    public List<List<IPosition>> PyramidOfCards { get; set; }
-    public List<IPosition> AvailableBoardPositions { get; set; }
-    public List<Move> AvailableMoves { get; set; }
-
-    public Board(int numberOfRows)
+    public class Board
     {
-        InHandDeck = new FullDeck();
-        DiscardedCardsDeck = new EmptyDeck();
+        public Pyramid Pyramid { get; }
+        public IDeck Deck { get; }
+        public IDeck DiscardDeck { get; }
+        public List<Card> AvailablePyramidCards { get; set; } = new();
+        public List<IMove> AvailableMoves => availableSinglePyramidMoves
+                .Cast<IMove>()
+                .Concat(availablePyramidPyramidMoves.Cast<IMove>())
+                .Concat(availableDeckPyramidMoves.Cast<IMove>())
+                .ToList();
 
-        List<List<Card>> cardGroups = PickCardsForBoard(numberOfRows);
-        PopulateAllRows(cardGroups);
+        private List<SinglePyramidMove> availableSinglePyramidMoves = new();
+        private List<PyramidPyramidMove> availablePyramidPyramidMoves = new();
+        private List<DeckPyramidMove> availableDeckPyramidMoves = new();
 
-        GetAvailableBoardPositions();
-        GetAvailableMoves();
-    }
-
-    public void GetAvailableBoardPositions()
-    {
-        List<IPosition> availableBoardPositions = new();
-
-        for (int i = 0; i < PyramidOfCards.Count - 1; i++)
+        public Board(int numberOfRows, IDeck deck)
         {
-            List<IPosition> currentRowPositions = PyramidOfCards[i];
-            List<IPosition> nextRowPositions = PyramidOfCards[i + 1];
+            Deck = deck;
+            Pyramid = new Pyramid(Deck, numberOfRows);
+            DiscardDeck = new DiscardDeck();
+            GetAllAvailableMoves();
+        }
 
-            for (int k = 0; k < currentRowPositions.Count; k++)
+        public void GetAllAvailableMoves()
+        {
+            GetAvailableCards();
+            GetAvailableDeckPyramidMoves();
+            GetAvailablePyramidMoves();
+        }
+
+        private void GetAvailableCards()
+        {
+            AvailablePyramidCards.Clear();
+            for (int i = 0; i < Pyramid.CardRows.Count - 1; i++)
             {
-                if (nextRowPositions[k].Card == null && nextRowPositions[k + 1].Card == null && currentRowPositions[k].Card != null)
+                List<Card> currentRow = Pyramid.CardRows[i];
+                List<Card> nextRow = Pyramid.CardRows[i + 1];
+
+                for (int k = 0; k < currentRow.Count; k++)
                 {
-                    availableBoardPositions.Add(currentRowPositions[k]);
+                    if (nextRow[k] == null && nextRow[k + 1] == null && currentRow[k] != null)
+                    {
+                        AvailablePyramidCards.Add(Pyramid.CardRows[i][k]);
+                    }
+                }
+            }
+            AvailablePyramidCards.Reverse();
+        }
+
+        private void GetAvailablePyramidMoves()
+        {
+            availablePyramidPyramidMoves.Clear();
+            availableSinglePyramidMoves.Clear();
+            for (int i = 0; i < AvailablePyramidCards.Count; i++)
+            {
+                Card card1 = AvailablePyramidCards[i];
+
+                if (card1.Number == 10)
+                {
+                    availableSinglePyramidMoves.Add(new SinglePyramidMove(card1));
+                    continue;
+                }
+                for (int k = i + 1; k < AvailablePyramidCards.Count; k++)
+                {
+                    Card card2 = AvailablePyramidCards[k];
+
+                    if (card1.Number == 10 - card2.Number)
+                    {
+                        availablePyramidPyramidMoves.Add(new PyramidPyramidMove(card1, card2));
+                    }
                 }
             }
         }
-        availableBoardPositions.Reverse();
-        AvailableBoardPositions = availableBoardPositions;
-    }
 
-    public void GetAvailableMoves()
-    {
-        List<Move> boardMoves = GetAvailableBoardMoves();
-        List<Move> deckMoves = GetAvailableDeckMoves();
-        AvailableMoves = boardMoves.Union(deckMoves).ToList();
-    }
-
-    private List<Move> GetAvailableBoardMoves()
-    {
-        List<Move> availableMoves = new();
-
-        for (int i = 0; i < AvailableBoardPositions.Count; i++)
+        private void GetAvailableDeckPyramidMoves()
         {
-            if (AvailableBoardPositions[i].Card.Number == 10)
+            availableDeckPyramidMoves.Clear();
+            for (int i = 0; i < AvailablePyramidCards.Count; i++)
             {
-                availableMoves.Add(new Move(AvailableBoardPositions[i], null));
-                continue;
-            }
-            for (int k = i + 1; k < AvailableBoardPositions.Count; k++)
-            {
+                Card pyramidCard = AvailablePyramidCards[i];
 
-                if (AvailableBoardPositions[i].Card.Number == 10 - AvailableBoardPositions[k].Card.Number)
+                for (int k = 0; k < Deck.Cards.Count; k++)
                 {
-                    availableMoves.Add(new Move(AvailableBoardPositions[i], AvailableBoardPositions[k]));
+                    Card deckCard = Deck.Cards[k];
+                    if (pyramidCard.Number == 10 - deckCard.Number)
+                    {
+                        availableDeckPyramidMoves.Add(new DeckPyramidMove(deckCard, pyramidCard, k));
+                    }
                 }
             }
         }
-        return availableMoves;
-    }
 
-    private List<Move> GetAvailableDeckMoves()
-    {
-        List<Move> availableMoves = new ();
-
-        for (int i = 0; i < AvailableBoardPositions.Count; i++)
-        {
-            for (int k = 0; k < InHandDeck.Positions.Count; k++)
-            {
-                if (AvailableBoardPositions[i].Card.Number == 10 - InHandDeck.Positions[k].Card.Number)
-                {
-                    availableMoves.Add(new Move(InHandDeck.Positions[k] , AvailableBoardPositions[i]));
-                }
-            }
-        }
-        return availableMoves;
-    }
-
-
-    private void PopulateAllRows(List<List<Card>> cardGroups)
-    {
-        List<List<IPosition>> pyramidOfCards = new();
-
-        int rowIndex = 0;
-        foreach (List<Card> cardGroup in cardGroups)
-        {
-            List<IPosition> row = PopulateRow(cardGroup, rowIndex);
-            pyramidOfCards.Add(row);
-            rowIndex++;
-        }
-
-        List<Card> emptyCardSection = new();
-
-        for (int i = 0; i < rowIndex+1; i++)
-        {
-            emptyCardSection.Add(null);
-        }
-
-        List<IPosition> emptyRow = new();
-        foreach (int value in Enumerable.Range(0, emptyCardSection.Count))
-        {
-            emptyRow.Add(new BoardPosition(value, rowIndex, null));
-        }
-
-        pyramidOfCards.Add(emptyRow);
-
-        PyramidOfCards = pyramidOfCards;
-    }
-
-
-    private List<IPosition> PopulateRow(List<Card> cardGroup, int rowIndex)
-    {
-        List<IPosition> row = new List<IPosition>();
-
-
-        foreach (int value in Enumerable.Range(0, cardGroup.Count))
-        {
-            row.Add(new BoardPosition(value, rowIndex, cardGroup[0]));
-            cardGroup.RemoveAt(0);
-        }
-        return row;
-    }
-
-    private List<List<Card>> PickCardsForBoard(int numberOfRows)
-    {
-        List<List<Card>> listOfCardSections = new();
-        int numberOfCards = 1;
-        for (int i = 0; i < numberOfRows; i++)
-        {
-            List<Card> cards = new();
-            List<IPosition> positions = InHandDeck.Positions.GetRange(0, numberOfCards);
-            InHandDeck.Positions.RemoveRange(0, numberOfCards);
-            foreach (IPosition position in positions)
-            {
-                cards.Add(position.Card);
-            }
-
-            listOfCardSections.Add(cards);
-            numberOfCards++;
-        }
-        return listOfCardSections;
     }
 }
