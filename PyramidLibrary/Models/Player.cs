@@ -5,13 +5,15 @@ namespace PyramidLibrary.Models;
 public class Player
 {
     public Board Board { get; set; }
-    public bool isWinner { get; set; } = false;
-    public bool isLooser { get; set; } = false;
+    public bool isWinner { get; set; }
+    public bool isLooser { get; set; }
     public bool isGameEnded => isWinner || isLooser;
 
 
     public Player(Board board)
     {
+        isWinner = false;
+        isLooser = false;
         Board = board;
     }
 

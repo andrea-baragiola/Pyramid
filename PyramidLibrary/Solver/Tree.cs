@@ -10,5 +10,34 @@ namespace PyramidLibrary.Solver
         {
             RootNode = new TreeNode(rootMove);
         }
+
+        public TreeNode GetNodeByPath(List<int> path)
+        {
+            TreeNode currentNode = RootNode;
+
+            foreach (int index in path)
+            {
+                currentNode = currentNode.Children[index];
+            }
+
+            return currentNode;
+        }
+
+        public bool PathIsValid(List<int> path)
+        {
+            TreeNode currentNode = RootNode;
+
+            foreach (int index in path)
+            {
+                if (index < 0 || index >= currentNode.Children.Count)
+                {
+                    return false;
+                }
+
+                currentNode = currentNode.Children[index];
+            }
+
+            return true;
+        }
     }
 }

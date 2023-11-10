@@ -4,15 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PyramidLibrary.Models.Decks
+namespace PyramidLibrary.Models.Decks;
+
+//public class CustomDeck : Deck, IDeck
+//{
+//    public CustomDeck(List<Card> oldcards)
+//    {
+//        Cards = oldcards;
+//    }
+//}
+
+public class CustomDeck : Deck, IDeck
 {
-    public class CustomDeck : Deck, IDeck
+    public CustomDeck(List<Card> oldCards)
     {
-        public CustomDeck(List<Card> oldcards)
-        {
-            Cards = oldcards;
-        }
-
-
+        Cards = oldCards.Select(card => new Card(card.Number, card.Suit, card.Name)).ToList();
     }
 }
