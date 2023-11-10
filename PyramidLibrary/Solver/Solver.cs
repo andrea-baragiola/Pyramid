@@ -10,7 +10,7 @@ namespace PyramidLibrary.Solver
     {
         public Tree Tree { get; set; }
         //public Board initialBoard { get; set; }
-        public Stack<int> Path { get; set; }
+        public List<int> Path { get; set; }
 
         public readonly int _numberOfRows;
         public readonly List<Card> _originalCards;
@@ -71,9 +71,9 @@ namespace PyramidLibrary.Solver
         //    }
         //}
 
-        public void ExecuteMove(TreeNode node, int index)
+        public void ExecuteMove(TreeNode node, int childIndex)
         {
-            DoMove(node.Children[index].Move);
+            DoMove(node.Children[childIndex].Move);
         }
 
         public void CreateChildNodes(TreeNode currentNode)

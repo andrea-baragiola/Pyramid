@@ -18,7 +18,7 @@ Solver solver = new Solver(board, numberOfPyramidRows, initialCards);
 
 
 Presentation.PresentBoard(solver.Board);
-Presentation.PresentCardList(solver.Board.AvailablePyramidCards,"available pyramid cards");
+Presentation.PresentCardList(solver.Board.AvailablePyramidCards, "available pyramid cards");
 Presentation.PresentAvailableMoves(solver.Board.AvailableMoves);
 Presentation.PresentCardList(solver.Board.Deck.Cards, "deck cards");
 Presentation.PresentCardList(solver.Board.DiscardDeck.Cards, "discarded cards");
@@ -49,12 +49,13 @@ void Solve(Solver solver)
             currentNode = currentNode.Children[0];
             solver.CreateChildNodes(currentNode);
 
-            solver.Path.Push(0);
+            solver.Path.Add(0);
         }
         else if (solver.isLooser)
         {
-            int lastNumber = solver.Path.Pop();
-            solver.Path.Push(lastNumber + 1);
+            int lastNumber = solver.Path.Last();
+            solver.Path.RemoveAt(solver.Path.Count - 1);
+            solver.Path.Add(lastNumber + 1);
 
             //reset and repeat stack moves changing the last move
             currentNode = solver.Tree.RootNode;
@@ -70,9 +71,11 @@ void Solve(Solver solver)
 
 void DoAllStackMoves(TreeNode currentNode, Solver solver)
 {
-    foreach (int i in solver.Path)
+
+    //for (int i = solver.Path.Count-1; i >= 0; i--)
+    for (int i = 0; i < solver.Path.Count; i++)
     {
-        solver.ExecuteMove(currentNode, i);
+        solver.ExecuteMove(currentNode, solver.Path[i]);
         currentNode = currentNode.Children[i];
 
         Presentation.PresentBoard(solver.Board);
