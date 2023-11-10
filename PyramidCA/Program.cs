@@ -76,7 +76,7 @@ void DoAllStackMoves(TreeNode currentNode, Solver solver)
     for (int i = 0; i < solver.Path.Count; i++)
     {
         solver.ExecuteMove(currentNode, solver.Path[i]);
-        currentNode = currentNode.Children[i];
+        currentNode = currentNode.Children[solver.Path[i]];
 
         Presentation.PresentBoard(solver.Board);
 
