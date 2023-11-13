@@ -5,7 +5,7 @@ using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Solver;
 
 
-int numberOfPyramidRows = 7;
+int numberOfPyramidRows = 3;
 
 
 

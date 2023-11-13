@@ -61,12 +61,21 @@ public class Deck : IDeck
 
     public List<Card> GiveCards(int numberOfCards)
     {
-        var output = Cards.TakeLast(numberOfCards).ToList();
+        var output = Cards.Take(numberOfCards).ToList();
 
-        Cards.RemoveRange(Cards.Count - numberOfCards, numberOfCards);
+        Cards.RemoveRange(0, numberOfCards);
 
         return output;
     }
+
+    //public List<Card> GiveCards(int numberOfCards)
+    //{
+    //    var output = Cards.TakeLast(numberOfCards).ToList();
+
+    //    Cards.RemoveRange(Cards.Count - numberOfCards, numberOfCards);
+
+    //    return output;
+    //}
 
 
 }

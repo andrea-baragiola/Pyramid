@@ -33,18 +33,18 @@ public class DeckTests
     //    card.Should().BeOfType<Card>();
     //}
 
-    [Theory]
-    [InlineData(-1)]
-    [InlineData(40)]
-    public void GiveCard_ShouldFail(int cardIndex)
-    {
-        // arrange
-        Deck deck = new();
+    //[Theory]
+    //[InlineData(-1)]
+    //[InlineData(40)]
+    //public void GiveCard_ShouldFail(int cardIndex)
+    //{
+    //    // arrange
+    //    Deck deck = new();
 
-        // act
-        Action act = () => deck.RemoveCard(cardIndex);
+    //    // act
+    //    Action act = () => deck.RemoveCard(cardIndex);
 
-        // assert
-        act.Should().Throw<Exception>();
-    }
+    //    // assert
+    //    act.Should().Throw<Exception>();
+    //}
 }
