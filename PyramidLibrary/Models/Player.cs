@@ -5,16 +5,15 @@ namespace PyramidLibrary.Models;
 public class Player
 {
     public Board Board { get; set; }
-    // TODO:EDAR perche' prop public con la naming convenction di quelle private?
-    public bool isWinner { get; set; }
-    public bool isLooser { get; set; }
-    public bool isGameEnded => isWinner || isLooser;
+    public bool IsWinner { get; set; }
+    public bool IsLooser { get; set; }
+    public bool IsGameEnded => IsWinner || IsLooser;
 
 
     public Player(Board board)
     {
-        isWinner = false;
-        isLooser = false;
+        IsWinner = false;
+        IsLooser = false;
         Board = board;
     }
 
@@ -63,11 +62,11 @@ public class Player
         {
             if (Board.Pyramid.CardRows[0][0] == null)
             {
-                isWinner = true;
+                IsWinner = true;
             }
             else
             {
-                isLooser = true;
+                IsLooser = true;
             }
         }
     }

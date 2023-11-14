@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using PyramidCA;
+﻿using PyramidCA;
 using PyramidLibrary.Models;
 using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Solver;
@@ -14,21 +13,21 @@ List<Card> initialCards = deck.Cards.ToList();
 Board board = new(numberOfPyramidRows, deck);
 
 
-Solver solver = new Solver(board, numberOfPyramidRows, initialCards);
-Presentation.PresentBoard(solver.Board);
-Presentation.PresentCardList(solver.Board.AvailablePyramidCards, "available pyramid cards");
-Presentation.PresentAvailableMoves(solver.Board.AvailableMoves);
-Presentation.PresentCardList(solver.Board.Deck.Cards, "deck cards");
-Presentation.PresentCardList(solver.Board.DiscardDeck.Cards, "discarded cards");
+//Solver solver = new Solver(board, numberOfPyramidRows, initialCards);
+//Presentation.PresentBoard(solver.Board);
+//Presentation.PresentCardList(solver.Board.AvailablePyramidCards, "available pyramid cards");
+//Presentation.PresentAvailableMoves(solver.Board.AvailableMoves);
+//Presentation.PresentCardList(solver.Board.Deck.Cards, "deck cards");
+//Presentation.PresentCardList(solver.Board.DiscardDeck.Cards, "discarded cards");
 
-bool solvable = solver.Solve(out List<int>path);
+//bool solvable = solver.Solve(out List<int>path);
 
-Console.WriteLine(solvable);
+//Console.WriteLine(solvable);
 
-foreach (int i in path)
-{
-    Console.Write(i + ", ");
-}
+//foreach (int i in path)
+//{
+//    Console.Write(i + ", ");
+//}
 
 Player player = new(board);
 
@@ -38,13 +37,13 @@ Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
 Presentation.PresentCardList(player.Board.Deck.Cards, "deck cards");
 Presentation.PresentCardList(player.Board.DiscardDeck.Cards, "discarded cards");
 
-while (player.isWinner == false && player.isLooser == false)
+while (player.IsWinner == false && player.IsLooser == false)
 {
     int choice = Presentation.AskWhichMove(player.Board.AvailableMoves);
 
     player.DoMove(player.Board.AvailableMoves[choice]);
 
-    player.Board.GetAllAvailableMoves();
+    player.Board.CreateAllAvailableMoves();
     Presentation.PresentBoard(player.Board);
     Presentation.PresentCardList(player.Board.AvailablePyramidCards, "available pyramid cards");
     Presentation.PresentAvailableMoves(player.Board.AvailableMoves);
@@ -54,7 +53,7 @@ while (player.isWinner == false && player.isLooser == false)
     player.CheckWinLoss();
 }
 
-if (player.isWinner)
+if (player.IsWinner)
 {
     Console.WriteLine("  ||=============||");
     Console.WriteLine("  ||   YOU WON   ||");

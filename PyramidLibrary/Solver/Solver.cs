@@ -4,7 +4,6 @@ using PyramidLibrary.Models.Moves;
 
 namespace PyramidLibrary.Solver;
 
-// TODO:EDAR In generale, commenta sempre. Metti i summary sia sulle classi sia sui metodi public
 public class Solver : Player
 {
     public Tree Tree { get; set; }
@@ -18,8 +17,6 @@ public class Solver : Player
     {
         _numberOfRows = numberOfRows;
         _originalCards = initialCards;
-
-        // TODO:EDAR fai gia' questa operazione nella classe base
         Board = board;
 
 
@@ -41,23 +38,22 @@ public class Solver : Player
             currentNode = FollowValidPath();
             CheckWinLoss();
 
-            while (isGameEnded == false)
+            while (IsGameEnded == false)
             {
                 DoMove(currentNode.Children[0].Move);
                 currentNode = currentNode.Children[0];
-                Board.GetAllAvailableMoves();
+                Board.CreateAllAvailableMoves();
                 CreateChildNodes(currentNode);
                 Path.Add(0);
 
                 CheckWinLoss();
             }
 
-            if (isWinner)
+            if (IsWinner)
             {
-                // TODO:EDAR non e' necessario avere una variabile per gestire questo caso. Puoi fare return anche da qui.
                 puzzlePossible = true;
             }
-            else if (isLooser)
+            else if (IsLooser)
             {
                 bool newMovesAreAvailable = false;
 
@@ -106,7 +102,7 @@ public class Solver : Player
 
             if (i == Path.Count - 1)
             {
-                Board.GetAllAvailableMoves();
+                Board.CreateAllAvailableMoves();
                 CreateChildNodes(currentNode);
             }
         }
@@ -115,10 +111,8 @@ public class Solver : Player
 
     private void RestartTheGame()
     {
-        isWinner = false;
-        isLooser = false;
-        // TODO:EDAR Capisco la motivazione ma non mi piace. Board lo passi nel costruttore,
-        //qui lo stai ridefinendo. E' un po un anti pattern. Pero' per come e' fatto al momento e' difficile da cambiare.
+        IsWinner = false;
+        IsLooser = false;
         Board = new(_numberOfRows, new CustomDeck(_originalCards));
     }
     public void CreateChildNodes(TreeNode currentNode)

@@ -24,19 +24,17 @@ namespace PyramidLibrary.Models
             Deck = deck;
             Pyramid = new Pyramid(Deck, numberOfRows);
             DiscardDeck = new DiscardDeck();
-            GetAllAvailableMoves();
+            CreateAllAvailableMoves();
         }
 
-        // TODO:EDAR GetXXX e non ritorna nulla? Se fai qualcosa chiamato Get fai in modo che torni qualcosa.
-        // forse in questo caso sono tutti Generate o Crete
-        public void GetAllAvailableMoves()
+        public void CreateAllAvailableMoves()
         {
-            GetAvailableCards();
-            GetAvailableDeckPyramidMoves();
-            GetAvailablePyramidMoves();
+            CreateAvailableCards();
+            CreateAvailableDeckPyramidMoves();
+            CreateAvailablePyramidMoves();
         }
 
-        private void GetAvailableCards()
+        private void CreateAvailableCards()
         {
             AvailablePyramidCards.Clear();
             for (int i = 0; i < Pyramid.CardRows.Count - 1; i++)
@@ -55,7 +53,7 @@ namespace PyramidLibrary.Models
             AvailablePyramidCards.Reverse();
         }
 
-        private void GetAvailablePyramidMoves()
+        private void CreateAvailablePyramidMoves()
         {
             availablePyramidPyramidMoves.Clear();
             availableSinglePyramidMoves.Clear();
@@ -80,7 +78,7 @@ namespace PyramidLibrary.Models
             }
         }
 
-        private void GetAvailableDeckPyramidMoves()
+        private void CreateAvailableDeckPyramidMoves()
         {
             availableDeckPyramidMoves.Clear();
             for (int i = 0; i < AvailablePyramidCards.Count; i++)
