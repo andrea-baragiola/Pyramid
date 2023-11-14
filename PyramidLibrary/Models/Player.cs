@@ -5,6 +5,7 @@ namespace PyramidLibrary.Models;
 public class Player
 {
     public Board Board { get; set; }
+    // TODO:EDAR perche' prop public con la naming convenction di quelle private?
     public bool isWinner { get; set; }
     public bool isLooser { get; set; }
     public bool isGameEnded => isWinner || isLooser;
@@ -19,6 +20,7 @@ public class Player
 
     public void DoMove(IMove move)
     {
+        // TODO:EDAR questo e' un caso d'uso perfetto per un pattern. Pero' per il momento possiamo fare finta di nulla.
         if (move is DeckPyramidMove deckPyramidMove)
         {
             DoDeckPyramidMove(deckPyramidMove);

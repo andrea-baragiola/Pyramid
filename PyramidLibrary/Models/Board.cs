@@ -27,6 +27,8 @@ namespace PyramidLibrary.Models
             GetAllAvailableMoves();
         }
 
+        // TODO:EDAR GetXXX e non ritorna nulla? Se fai qualcosa chiamato Get fai in modo che torni qualcosa.
+        // forse in questo caso sono tutti Generate o Crete
         public void GetAllAvailableMoves()
         {
             GetAvailableCards();

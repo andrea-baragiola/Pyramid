@@ -1,12 +1,10 @@
-﻿using System;
-using System.Numerics;
-using System.Xml.Linq;
-using PyramidLibrary.Models;
+﻿using PyramidLibrary.Models;
 using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Models.Moves;
 
 namespace PyramidLibrary.Solver;
 
+// TODO:EDAR In generale, commenta sempre. Metti i summary sia sulle classi sia sui metodi public
 public class Solver : Player
 {
     public Tree Tree { get; set; }
@@ -20,6 +18,8 @@ public class Solver : Player
     {
         _numberOfRows = numberOfRows;
         _originalCards = initialCards;
+
+        // TODO:EDAR fai gia' questa operazione nella classe base
         Board = board;
 
 
@@ -54,6 +54,7 @@ public class Solver : Player
 
             if (isWinner)
             {
+                // TODO:EDAR non e' necessario avere una variabile per gestire questo caso. Puoi fare return anche da qui.
                 puzzlePossible = true;
             }
             else if (isLooser)
@@ -116,6 +117,8 @@ public class Solver : Player
     {
         isWinner = false;
         isLooser = false;
+        // TODO:EDAR Capisco la motivazione ma non mi piace. Board lo passi nel costruttore,
+        //qui lo stai ridefinendo. E' un po un anti pattern. Pero' per come e' fatto al momento e' difficile da cambiare.
         Board = new(_numberOfRows, new CustomDeck(_originalCards));
     }
     public void CreateChildNodes(TreeNode currentNode)
