@@ -2,7 +2,6 @@
 
 namespace PyramidLibrary.Solver
 {
-    // TODO:EDAR usa i generics Tree<T>
     public class Tree<T>
     {
         public TreeNode<T> RootNode { get; set; }
