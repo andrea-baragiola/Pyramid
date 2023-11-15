@@ -38,7 +38,7 @@ namespace PyramidTests.ModelsTests
             Solver solver = new Solver(board, 4, cardList);
 
             // act
-            bool solvable = solver.Solve(out List<int> winnerPath);
+            bool solvable = solver.Solve(out List<int> winnerPath, out TimeSpan timeTaken);
 
             // assert
             solvable.Should().Be(true);
@@ -75,7 +75,7 @@ namespace PyramidTests.ModelsTests
             Solver solver = new Solver(board, 4, cardList);
 
             // act
-            bool solvable = solver.Solve(out List<int> winnerPath);
+            bool solvable = solver.Solve(out List<int> winnerPath, out TimeSpan timeTaken);
 
             // assert
             solvable.Should().Be(true);
@@ -112,7 +112,7 @@ namespace PyramidTests.ModelsTests
             Solver solver = new Solver(board, 4, cardList);
 
             // act
-            bool solvable = solver.Solve(out List<int> winnerPath);
+            bool solvable = solver.Solve(out List<int> winnerPath, out TimeSpan timeTaken);
 
             // assert
             solvable.Should().Be(false);

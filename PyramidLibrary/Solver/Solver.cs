@@ -1,4 +1,5 @@
-﻿using PyramidLibrary.Models;
+﻿using System.Diagnostics;
+using PyramidLibrary.Models;
 using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Models.Moves;
 
@@ -23,8 +24,11 @@ public class Solver : Player
         Tree = new(new VoidMove());
     }
 
-    public bool Solve(out List<int> winnerPath)
+    public bool Solve(out List<int> winnerPath, out TimeSpan timeTaken)
     {
+        var timer = new Stopwatch();
+        timer.Start();
+
         TreeNode<IMove> currentNode = Tree.RootNode;
         CreateChildNodes(currentNode);
 
@@ -33,6 +37,8 @@ public class Solver : Player
 
         while (puzzleImpossible == false && puzzlePossible == false)
         {
+
+
             RestartTheGame();
             currentNode = FollowValidPath();
             CheckWinLoss();
@@ -79,6 +85,10 @@ public class Solver : Player
             }
         }
 
+        timer.Stop();
+        timeTaken = timer.Elapsed;
+
+
         if (puzzleImpossible)
         {
             winnerPath = Path;
@@ -89,6 +99,8 @@ public class Solver : Player
             winnerPath = Path;
             return true;
         }
+
+
     }
 
     private TreeNode<IMove> FollowValidPath()

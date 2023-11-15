@@ -4,30 +4,30 @@ using PyramidLibrary.Models.Decks;
 using PyramidLibrary.Solver;
 
 
-int numberOfPyramidRows = 3;
+int numberOfPyramidRows = 6;
 
 Deck deck = new Deck();
 
-List<Card> initialCards = deck.Cards.ToList();
+Card[] initialCards = deck.Cards.ToArray();
 
 Board board = new(numberOfPyramidRows, deck);
 
 
-//Solver solver = new Solver(board, numberOfPyramidRows, initialCards);
-//Presentation.PresentBoard(solver.Board);
-//Presentation.PresentCardList(solver.Board.AvailablePyramidCards, "available pyramid cards");
-//Presentation.PresentAvailableMoves(solver.Board.AvailableMoves);
-//Presentation.PresentCardList(solver.Board.Deck.Cards, "deck cards");
-//Presentation.PresentCardList(solver.Board.DiscardDeck.Cards, "discarded cards");
+Solver solver = new Solver(board, numberOfPyramidRows, initialCards);
+Presentation.PresentBoard(solver.Board);
+Presentation.PresentCardList(solver.Board.AvailablePyramidCards, "available pyramid cards");
+Presentation.PresentAvailableMoves(solver.Board.AvailableMoves);
+Presentation.PresentCardList(solver.Board.Deck.Cards, "deck cards");
+Presentation.PresentCardList(solver.Board.DiscardDeck.Cards, "discarded cards");
 
-//bool solvable = solver.Solve(out List<int>path);
+bool solvable = solver.Solve(out List<int> path, out TimeSpan timeTaken);
 
-//Console.WriteLine(solvable);
+Console.WriteLine(solvable);
 
-//foreach (int i in path)
-//{
-//    Console.Write(i + ", ");
-//}
+foreach (int i in path)
+{
+    Console.Write(i + ", ");
+}
 
 Player player = new(board);
 
