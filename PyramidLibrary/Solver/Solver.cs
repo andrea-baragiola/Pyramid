@@ -10,9 +10,9 @@ public class Solver : Player
     public List<int> Path { get; set; }
 
     private readonly int _numberOfRows;
-    private readonly List<Card> _originalCards;
+    private readonly Card[] _originalCards;
 
-    public Solver(Board board, int numberOfRows, List<Card> initialCards) : base(board)
+    public Solver(Board board, int numberOfRows, Card[] initialCards) : base(board)
     {
         _numberOfRows = numberOfRows;
         _originalCards = initialCards;

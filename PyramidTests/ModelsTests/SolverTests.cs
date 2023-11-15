@@ -11,7 +11,7 @@ namespace PyramidTests.ModelsTests
         public void Solve_ShoudFindValidSolution()
         {
             // arrange
-            List<Card> cardList = new()
+            Card[] cardList = 
             {
                 new Card(10, "A"),
 
@@ -49,7 +49,7 @@ namespace PyramidTests.ModelsTests
         public void Solve_ShoudIterateAndFindValidSolution()
         {
             // arrange
-            List<Card> cardList = new() 
+            Card[] cardList = 
             {
                 new Card(10, "A"),
 
@@ -86,7 +86,7 @@ namespace PyramidTests.ModelsTests
         public void Solve_ShoudNotFindValidSolution()
         {
             // arrange
-            List<Card> cardList = new()
+            Card[] cardList =
             {
                 new Card(5, "A"),
 
