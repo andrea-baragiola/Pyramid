@@ -2,17 +2,17 @@
 
 namespace PyramidLibrary.Solver;
 
-public class TreeNode
+public class TreeNode<T>
 {
-    public IMove Move { get; set; }
-    public List<TreeNode> Children { get; } = new();
+    public T Data { get; set; }
+    public List<TreeNode<T>> Children { get; } = new();
 
-    public TreeNode(IMove move)
+    public TreeNode(T data)
     {
-        Move = move;
+        Data = data;
     }
 
-    public void AddChild(TreeNode childNode)
+    public void AddChild(TreeNode<T> childNode)
     {
         Children.Add(childNode);
     }

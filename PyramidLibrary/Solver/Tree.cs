@@ -3,18 +3,18 @@
 namespace PyramidLibrary.Solver
 {
     // TODO:EDAR usa i generics Tree<T>
-    public class Tree
+    public class Tree<T>
     {
-        public TreeNode RootNode { get; set; }
+        public TreeNode<T> RootNode { get; set; }
 
-        public Tree(IMove rootMove)
+        public Tree(T root)
         {
-            RootNode = new TreeNode(rootMove);
+            RootNode = new TreeNode<T>(root);
         }
 
-        public TreeNode GetNodeByPath(List<int> path)
+        public TreeNode<T> GetNodeByPath(List<int> path)
         {
-            TreeNode currentNode = RootNode;
+            TreeNode<T> currentNode = RootNode;
 
             foreach (int index in path)
             {
@@ -26,7 +26,7 @@ namespace PyramidLibrary.Solver
 
         public bool PathIsValid(List<int> path)
         {
-            TreeNode currentNode = RootNode;
+            TreeNode<T> currentNode = RootNode;
 
             foreach (int index in path)
             {

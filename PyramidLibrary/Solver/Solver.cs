@@ -6,7 +6,7 @@ namespace PyramidLibrary.Solver;
 
 public class Solver : Player
 {
-    public Tree Tree { get; set; }
+    public Tree<IMove> Tree { get; set; }
     //public Board initialBoard { get; set; }
     public List<int> Path { get; set; }
 
@@ -26,7 +26,7 @@ public class Solver : Player
 
     public bool Solve(out List<int> winnerPath)
     {
-        TreeNode currentNode = Tree.RootNode;
+        TreeNode<IMove> currentNode = Tree.RootNode;
         CreateChildNodes(currentNode);
 
         bool puzzleImpossible = false;
@@ -40,7 +40,7 @@ public class Solver : Player
 
             while (IsGameEnded == false)
             {
-                DoMove(currentNode.Children[0].Move);
+                DoMove(currentNode.Children[0].Data);
                 currentNode = currentNode.Children[0];
                 Board.CreateAllAvailableMoves();
                 CreateChildNodes(currentNode);
@@ -92,12 +92,12 @@ public class Solver : Player
         }
     }
 
-    private TreeNode FollowValidPath()
+    private TreeNode<IMove> FollowValidPath()
     {
         var currentNode = Tree.RootNode;
         for (int i = 0; i < Path.Count; i++)
         {
-            DoMove(currentNode.Children[Path[i]].Move);
+            DoMove(currentNode.Children[Path[i]].Data);
             currentNode = currentNode.Children[Path[i]];
 
             if (i == Path.Count - 1)
@@ -115,11 +115,11 @@ public class Solver : Player
         IsLooser = false;
         Board = new(_numberOfRows, new CustomDeck(_originalCards));
     }
-    public void CreateChildNodes(TreeNode currentNode)
+    public void CreateChildNodes(TreeNode<IMove> currentNode)
     {
         foreach (IMove availableMove in Board.AvailableMoves)
         {
-            currentNode.AddChild(new TreeNode(availableMove));
+            currentNode.AddChild(new TreeNode<IMove>(availableMove));
         }
     }
 }
