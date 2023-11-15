@@ -7,7 +7,6 @@ namespace PyramidLibrary.Solver;
 public class Solver : Player
 {
     public Tree<IMove> Tree { get; set; }
-    //public Board initialBoard { get; set; }
     public List<int> Path { get; set; }
 
     private readonly int _numberOfRows;
