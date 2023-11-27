@@ -37,7 +37,12 @@ public class Solver : Player
 
         while (puzzleImpossible == false && puzzlePossible == false)
         {
-
+            Debug.WriteLine("Restarting with a new path");
+            foreach (int number in Path)
+            {
+                Debug.Write($"{number}, ");
+            }
+            Debug.WriteLine("");
 
             RestartTheGame();
             currentNode = FollowValidPath();
@@ -45,6 +50,8 @@ public class Solver : Player
 
             while (IsGameEnded == false)
             {
+                Debug.WriteLine("Game is not ended");
+
                 DoMove(currentNode.Children[0].Data);
                 currentNode = currentNode.Children[0];
                 Board.CreateAllAvailableMoves();
@@ -56,14 +63,18 @@ public class Solver : Player
 
             if (IsWinner)
             {
+                Debug.WriteLine("Winner!");
                 puzzlePossible = true;
             }
             else if (IsLooser)
             {
+                Debug.WriteLine("Looser...");
+
                 bool newMovesAreAvailable = false;
 
                 while (newMovesAreAvailable == false && puzzleImpossible == false)
                 {
+
                     if (Path.Count != 0)
                     {
                         Path[Path.Count - 1]++;
@@ -79,6 +90,7 @@ public class Solver : Player
                     }
                     else
                     {
+                        Debug.WriteLine("Puzzle is impossible");
                         puzzleImpossible = true;
                     }
                 }
@@ -88,20 +100,20 @@ public class Solver : Player
         timer.Stop();
         timeTaken = timer.Elapsed;
 
-
         if (puzzleImpossible)
         {
+            Debug.WriteLine("Puzzle is impossible");
             winnerPath = Path;
             return false;
         }
         else
         {
+            Debug.WriteLine("Puzzle is possible");
             winnerPath = Path;
             return true;
         }
-
-
     }
+
 
     private TreeNode<IMove> FollowValidPath()
     {
